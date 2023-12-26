@@ -4,7 +4,6 @@ import { Button } from 'react-native-elements';
 import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
 
-// const GOOGLE_AUTHORIZATION_ENDPOINT = 'https://accounts.google.com/';
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const GOOGLE_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
 const GOOGLE_REDIRECT_URI = 'com.googleusercontent.apps.704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q:/oauthredirect';
