@@ -91,10 +91,9 @@ export default function AuthorizeAppleComponent() {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Apple Authentication</Text>
-      {getAppleAuthContent()}
-      <Text>{JSON.stringify(userInfo)}</Text>
+    <View>
+        {getAppleAuthContent()}
+        <Text style={{ textAlign: 'center', paddingTop: 4 }}>{JSON.stringify(userInfo)}</Text>
     </View>
   );
 }

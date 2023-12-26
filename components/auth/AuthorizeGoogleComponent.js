@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const GOOGLE_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
@@ -103,9 +104,16 @@ export default function AuthorizeGoogleComponent() {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Login with Google" onPress={() => promptAsync()} />
-      <Text>{JSON.stringify(userInfo)}</Text>
+    <View>
+      <FontAwesome.Button
+          name="google"
+          backgroundColor="#4285F4"
+          style={{ fontFamily: "Roboto", paddingVertical: 11, paddingHorizontal: 20 }}
+          onPress={() => promptAsync()}
+        >
+          <Text style={{ fontSize: 17, color: 'white', fontWeight: '500' }}>Sign In with Google</Text>
+        </FontAwesome.Button>
+        <Text style={{ textAlign: 'center', paddingTop: 4 }}>{JSON.stringify(userInfo)}</Text> 
     </View>
   );
 }
