@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
 import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
 import FontAwesome from '@expo/vector-icons/FontAwesome';

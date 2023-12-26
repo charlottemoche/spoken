@@ -7,17 +7,7 @@ import AuthorizeAppleComponent from '../../components/auth/AuthorizeAppleCompone
 export default function HomeScreen() {
   return (
     <Container>
-      <AuthorizeGoogleComponent />
-      
-      <View style={styles.padding} />
-      
-      <AuthorizeAppleComponent />
+      <Text>You are logged in</Text>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  padding: {
-    paddingVertical: 10, // Adjust the value as per your requirement
-  },
-});

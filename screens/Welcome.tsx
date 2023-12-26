@@ -1,20 +1,21 @@
-import React, { FunctionComponent } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import styled from 'styled-components/native';
-import { Text, Container } from '../components/Themed';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, Text, View } from '../components/Themed';
 import AuthorizeGoogleComponent from '../components/auth/AuthorizeGoogleComponent';
+import AuthorizeAppleComponent from '../components/auth/AuthorizeAppleComponent';
 
-const Welcome: FunctionComponent = () => {
-    const handleLoginSuccess = () => {
-      // Handle any logic you need when the user is successfully authenticated
-    };
-  
-    return (
-      <Container>
-        <StatusBar style="auto" />
-        <AuthorizeGoogleComponent onLoginSuccess={handleLoginSuccess} />
-      </Container>
-    );
-  };
+export default function WelcomeScreen() {
+  return (
+    <Container>
+      <AuthorizeGoogleComponent />
+      <View style={styles.padding} />
+      <AuthorizeAppleComponent />
+    </Container>
+  );
+}
 
-export default Welcome;
+const styles = StyleSheet.create({
+  padding: {
+    paddingVertical: 10,
+  },
+});
