@@ -42,3 +42,13 @@ export function View(props: ViewProps) {
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+export function Container(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const flex = 1;
+  const alignItems = 'center';
+  const justifyContent = 'center';
+
+  return <DefaultView style={[{ backgroundColor, flex, alignItems, justifyContent }, style]} {...otherProps} />;
+}
