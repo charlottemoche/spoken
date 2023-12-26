@@ -26,6 +26,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          title: 'Index',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="home"
+        options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
@@ -70,6 +77,27 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
+          headerRight: () => (
+            <Link href="/settings" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <MaterialIcons
+                    name="settings"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          href: null,
         }}
       />
     </Tabs>
