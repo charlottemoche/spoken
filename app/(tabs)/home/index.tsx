@@ -1,10 +1,23 @@
-import { Link, Stack } from 'expo-router';
-import { Container, Text, View } from '../../../components/Themed';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, View } from '../../../components/Themed';
+import { Stack } from 'expo-router';
+import AuthorizeGoogleComponent from '../../../components/auth/AuthorizeGoogleComponent';
+import AuthorizeAppleComponent from '../../../components/auth/AuthorizeAppleComponent';
 
 export default function Page() {
-    return (
-      <View>
-        <Stack.Screen options={{ headerShown: false, title: "Home" }} />
-      </View>
-    );
-  }
+  return (
+    <Container>
+      <Stack.Screen options={{ headerShown: false, title: 'Home' }} />
+      {/* <AuthorizeAppleComponent />
+      <View style={styles.padding} />
+      <AuthorizeGoogleComponent /> */}
+    </Container>
+  );
+}
+
+const styles = StyleSheet.create({
+  padding: {
+    paddingVertical: 10,
+  },
+});

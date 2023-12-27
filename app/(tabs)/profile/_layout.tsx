@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
+import { useQuery, gql } from '@apollo/client';
+
+const GET_USER = gql`
+  query {
+    user @client {
+      firstName
+      lastName
+    }
+  }
+`;
 
 export default function ProfileScreen() {
   const [activeTab, setActiveTab] = useState('Posts');
+  const { loading, error, data } = useQuery(GET_USER);
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -26,7 +37,7 @@ export default function ProfileScreen() {
               style={styles.avatar}
               source={require('../../../assets/images/icon.png')}
             />
-          <Text style={styles.username}>Username</Text>
+          <Text style={styles.username}>{data.user.firstName} {data.user.lastName}</Text>
         </View>
       </View>
       <View style={styles.separator} />

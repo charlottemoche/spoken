@@ -93,7 +93,6 @@ export default function AuthorizeAppleComponent() {
   return (
     <View>
         {getAppleAuthContent()}
-        <Text style={{ textAlign: 'center', paddingTop: 4 }}>{JSON.stringify(userInfo)}</Text>
     </View>
   );
 }
