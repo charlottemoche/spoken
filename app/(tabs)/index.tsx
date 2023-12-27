@@ -1,13 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Container, Text, View } from '../../components/Themed';
-import AuthorizeGoogleComponent from '../../components/auth/AuthorizeGoogleComponent';
-import AuthorizeAppleComponent from '../../components/auth/AuthorizeAppleComponent';
+import { Redirect } from 'expo-router';
 
-export default function HomeScreen() {
-  return (
-    <Container>
-      <Text>You are logged in</Text>
-    </Container>
-  );
+export default function Page() {
+  return <Redirect href={"/(tabs)/home"} />;
 }

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Button } from 'react-native-elements';
+import { FontAwesome } from '@expo/vector-icons';
+import client from '../../constants/Client';
+import { gql } from '@apollo/client';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const GOOGLE_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
@@ -72,9 +75,18 @@ export default function AuthorizeGoogleComponent() {
     
           if (mutationResult.data && mutationResult.data.authorize) {
             const { token, user } = mutationResult.data.authorize;
-            console.log('Token:', token);
-            console.log('User:', user);
-            console.log('Full data response:', mutationResult.data);
+
+            client.writeQuery({
+              query: gql`
+                query {
+                  user @client {
+                    firstName
+                    lastName
+                  }
+                }
+              `,
+              data: { user },
+            });
           } else {
             console.error('Authorization failed:', mutationResult);
           }
@@ -94,7 +106,7 @@ export default function AuthorizeGoogleComponent() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const userInfoResponse = await response.json();
-      console.log('UserInfoResponse:', userInfoResponse); // Log userInfoResponse
+      console.log('UserInfoResponse:', userInfoResponse);
       return userInfoResponse;
     } catch (e) {
       console.error('Error fetching user info:', e);
@@ -104,15 +116,20 @@ export default function AuthorizeGoogleComponent() {
 
   return (
     <View>
-      <FontAwesome.Button
-          name="google"
-          backgroundColor="#4285F4"
-          style={{ fontFamily: "Roboto", paddingVertical: 11, paddingHorizontal: 20 }}
-          onPress={() => promptAsync()}
-        >
-          <Text style={{ fontSize: 17, color: 'white', fontWeight: '500' }}>Sign In with Google</Text>
-        </FontAwesome.Button>
-        <Text style={{ textAlign: 'center', paddingTop: 4 }}>{JSON.stringify(userInfo)}</Text> 
+      <Button
+        onPress={() => promptAsync()}
+        buttonStyle={{ backgroundColor: '#4285F4', borderRadius: 5, paddingVertical: 11, paddingHorizontal: 15 }}
+        icon={
+          <FontAwesome
+            name="google"
+            size={13}
+            color="white"
+            style={{ marginRight: 6 }}
+          />
+        }
+        title="Sign In with Google"
+        titleStyle={{ fontSize: 17, color: 'white', fontWeight: '500' }}
+      />
     </View>
   );
 }
