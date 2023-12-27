@@ -4186,6 +4186,11 @@ expo-router@^2.0.0:
     schema-utils "^4.0.1"
     url "^0.11.0"
 
+expo-secure-store@^12.5.0:
+  version "12.5.0"
+  resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-12.5.0.tgz#f52456e15315d64d1e9000384d4a837eea9dbb1f"
+  integrity sha512-Ow2ei+SB1w4zPLxmOg2PVPf2i45Eii0T9KUaER5iRLJAMcBWN4nyGCxzESOoN3OrvxVadP0hAn6RVE1G3gdD+Q==
+
 expo-splash-screen@~0.20.2, expo-splash-screen@~0.20.5:
   version "0.20.5"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.20.5.tgz#ebeba3e3977606830f74f506ab2cc25042bb7efd"
@@ -6894,6 +6899,11 @@ prepend-http@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==
+
+prettier@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.1.1.tgz#6ba9f23165d690b6cbdaa88cb0807278f7019848"
+  integrity sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==
 
 pretty-bytes@5.6.0:
   version "5.6.0"
