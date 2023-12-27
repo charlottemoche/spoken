@@ -3,6 +3,8 @@ import { Text, View } from 'react-native';
 import { Platform } from 'react-native';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { encode } from 'base-64';
+import client from '../../constants/Client';
+import { gql } from '@apollo/client';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 
@@ -19,17 +21,19 @@ export default function AuthorizeAppleComponent() {
       });
 
       // Extract relevant information from the credential
-      const { userId, email } = credential;
+      const { userId, email, fullName } = credential;
 
-      // Call the GraphQL mutation
       const authHeader = 'Basic ' + encode('mobile-app' + ':' + 'hellospoken123');
+    
       const authorizeInput = {
-        providerRefid: userId || '',
+        providerRefid: userId,
         provider: 'APPLE',
-        name: '', // You may need to retrieve the full name from the Apple credential
-        image: '', // You may need to retrieve the profile image from the Apple credential
+        name: fullName?.givenName + ' ' + fullName?.familyName || '',
+        image: '',
         email: email || '',
       };
+
+      console.log('AuthorizeInput:', authorizeInput);
 
       const mutationResponse = await fetch(GRAPHQL_ENDPOINT, {
         method: 'POST',
@@ -66,10 +70,17 @@ export default function AuthorizeAppleComponent() {
 
       if (mutationResult.data && mutationResult.data.authorize) {
         const { token, user } = mutationResult.data.authorize;
-        console.log('Token:', token);
-        console.log('User:', user);
-        console.log('Full data response:', mutationResult.data);
-        setUserInfo(user);
+        client.writeQuery({
+          query: gql`
+            query {
+              user @client {
+                firstName
+                lastName
+              }
+            }
+          `,
+          data: { user },
+        });
       } else {
         console.error('Authorization failed:', mutationResult);
       }

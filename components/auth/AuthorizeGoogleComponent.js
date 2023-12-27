@@ -28,7 +28,6 @@ export default function AuthorizeGoogleComponent() {
         if (response && response.type === 'success') {
           const userInfoResponse = await getUserInfo(response.authentication.accessToken);
           console.log('UserInfo:', userInfoResponse);
-          setUserInfo(userInfoResponse);
     
           const authHeader = 'Basic ' + encode('mobile-app' + ':' + 'hellospoken123');
     
