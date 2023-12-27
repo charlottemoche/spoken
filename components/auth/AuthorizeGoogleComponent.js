@@ -8,14 +8,16 @@ import client from '../../constants/Client';
 import { gql } from '@apollo/client';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
-const GOOGLE_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
+const IOS_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
+const ANDROID_CLIENT_ID = '704374595989-g00b78dpjrdt6mqof4l5r23rrc6fh9j9.apps.googleusercontent.com'
 const GOOGLE_REDIRECT_URI = 'com.googleusercontent.apps.704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q:/oauthredirect';
 
 export default function AuthorizeGoogleComponent() {
   const [userInfo, setUserInfo] = useState(null);
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: GOOGLE_CLIENT_ID,
-    webClientId: GOOGLE_CLIENT_ID,
+    iosClientId: IOS_CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID,
+    // webClientId: GOOGLE_CLIENT_ID,
     redirectUri: GOOGLE_REDIRECT_URI,
     scopes: ['openid', 'profile', 'email'],
   });

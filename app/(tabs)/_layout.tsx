@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
+import { Image } from 'expo-image';
 
 import Colors from '../../constants/Colors';
 
@@ -18,7 +19,6 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
@@ -37,12 +37,18 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon size={22} name="home-outline" color={color} />,
+          headerLeft: () => (
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
+            />
+          ),
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/settings" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <Ionicons
-                    name="information-circle"
+                    name="settings"
                     size={25}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -60,11 +66,11 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon size={22} name="search" color={color} />,
         }}
       />
-      <Tabs.Screen
+     <Tabs.Screen
         name="post"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon size={30} name="add-circle" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={32} name="add-circle" color='#E1EC41' />,
         }}
       />
       <Tabs.Screen
@@ -100,6 +106,20 @@ export default function TabLayout() {
         options={{
           title: '',
           href: null,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="information-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
     </Tabs>

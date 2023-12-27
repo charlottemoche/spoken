@@ -33,6 +33,7 @@
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "^12.5.0",
+    "filestack-react": "^5.0.0",
     "graphql": "^16.8.1",
     "metro": "~0.76.7",
     "oidc-client": "^1.11.5",
