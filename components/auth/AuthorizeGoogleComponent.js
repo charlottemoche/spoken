@@ -127,7 +127,7 @@ export default function AuthorizeGoogleComponent() {
             style={{ marginRight: 6 }}
           />
         }
-        title="Sign In with Google"
+        title="Sign in with Google"
         titleStyle={{ fontSize: 17, color: 'white', fontWeight: '500' }}
       />
     </View>
