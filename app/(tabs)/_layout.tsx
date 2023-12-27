@@ -104,7 +104,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: '',
+          title: 'Settings',
           href: null,
           headerRight: () => (
             <Link href="/modal" asChild>

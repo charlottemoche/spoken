@@ -2,10 +2,12 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
 import client from '../constants/Client';
+import { AuthProvider, useAuth } from '../components/auth/AuthContext';
+import EnterScreen from './enter';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -26,16 +28,7 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  if (error) throw error;
 
   if (!loaded) {
     return null;
@@ -43,9 +36,29 @@ export default function RootLayout() {
 
   return (
     <ApolloProvider client={client}>
-        <RootLayoutNav />
+      <AuthProvider>
+        {/* Wrap the entire RootLayout content in the AuthProvider context */}
+        <Content />
+      </AuthProvider>
     </ApolloProvider>
   );
+}
+
+function Content() {
+  const { isLoggedIn, checkLoginStatus } = useAuth();
+
+  useEffect(() => {
+    SplashScreen.hideAsync();
+    checkLoginStatus();
+  }, []); // Run once when component mounts
+
+  useEffect(() => {
+    console.log('isLoggedIn after authentication check:', isLoggedIn);
+  }, [isLoggedIn]); // Run this effect whenever isLoggedIn changes
+
+  console.log('RootLayout rendering. isLoggedIn:', isLoggedIn);
+
+  return isLoggedIn ? <RootLayoutNav /> : <EnterScreen />;
 }
 
 function RootLayoutNav() {
