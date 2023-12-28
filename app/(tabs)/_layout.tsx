@@ -44,12 +44,12 @@ export default function TabLayout() {
             />
           ),
           headerRight: () => (
-            <Link href="/settings" asChild>
+            <Link href="/connections" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <Ionicons
-                    name="settings"
-                    size={25}
+                    name="person-add"
+                    size={22}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
