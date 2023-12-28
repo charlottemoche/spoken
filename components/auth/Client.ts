@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import * as SecureStore from 'expo-secure-store';
 import { persistCache } from 'apollo3-cache-persist';
+import * as SecureStore from 'expo-secure-store';
 
 const BASE_URL = 'https://spoken.app/api';
 

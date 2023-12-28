@@ -1,13 +1,14 @@
+import { ApolloProvider } from '@apollo/client';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import { ApolloProvider } from '@apollo/client';
-import client from '../components/auth/Client';
-import { AuthProvider, useAuth } from '../components/auth/AuthContext';
+
 import EnterScreen from './enter';
+import { AuthProvider, useAuth } from '../components/auth/AuthContext';
+import client from '../components/auth/Client';
 
 export {
   // Catch any errors thrown by the Layout component.

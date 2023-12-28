@@ -12,4 +12,4 @@ export const getAuthToken = async () => {
 
 export const removeAuthToken = async () => {
   await SecureStore.deleteItemAsync(AUTH_TOKEN_KEY);
-}
+};

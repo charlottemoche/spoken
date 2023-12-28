@@ -1,17 +1,19 @@
-import { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
-import { Platform } from 'react-native';
-import * as AppleAuthentication from 'expo-apple-authentication';
-import { encode } from 'base-64';
-import client from './Client';
 import { gql } from '@apollo/client';
+import { encode } from 'base-64';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import fetch from 'node-fetch';
+import { View, Platform } from 'react-native';
+
+import client from './Client';
+import { useAuth } from '../../components/auth/AuthContext';
+import { saveAuthToken } from '../../components/auth/AuthService';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 
 export default function AuthorizeAppleComponent() {
-  const [userInfo, setUserInfo] = useState(null);
+  const { checkLoginStatus } = useAuth();
 
-  const login = async () => {
+  const handleAppleLogin = async () => {
     try {
       const credential = await AppleAuthentication.signInAsync({
         requestedScopes: [
@@ -20,26 +22,27 @@ export default function AuthorizeAppleComponent() {
         ],
       });
 
-      // Extract relevant information from the credential
-      const { userId, email, fullName } = credential;
+      if (!credential || !credential.user) {
+        console.error('Apple login failed or user ID is missing.');
+        return;
+      }
 
+      const { user, email, fullName } = credential;
       const authHeader = 'Basic ' + encode('mobile-app' + ':' + 'hellospoken123');
-    
+
       const authorizeInput = {
-        providerRefid: userId,
+        providerRefid: user,
         provider: 'APPLE',
         name: fullName?.givenName + ' ' + fullName?.familyName || '',
         image: '',
         email: email || '',
       };
 
-      console.log('AuthorizeInput:', authorizeInput);
-
       const mutationResponse = await fetch(GRAPHQL_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': authHeader,
+          Authorization: authHeader,
         },
         body: JSON.stringify({
           query: `
@@ -64,9 +67,11 @@ export default function AuthorizeAppleComponent() {
         }),
       });
 
+      console.log('Raw HTML Response:', await mutationResponse.text());
+
       const mutationResult = await mutationResponse.json();
 
-      console.log('MutationResult:', mutationResult); // Add this line
+      console.log('MutationResult:', mutationResult);
 
       if (mutationResult.data && mutationResult.data.authorize) {
         const { token, user } = mutationResult.data.authorize;
@@ -81,6 +86,9 @@ export default function AuthorizeAppleComponent() {
           `,
           data: { user },
         });
+
+        await saveAuthToken(token);
+        checkLoginStatus();
       } else {
         console.error('Authorization failed:', mutationResult);
       }
@@ -95,15 +103,11 @@ export default function AuthorizeAppleComponent() {
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
         cornerRadius={5}
-        style={{ width: 200, height: 44 }}
-        onPress={login}
+        style={{ width: 375, height: 44 }}
+        onPress={handleAppleLogin}
       />
     ) : null;
   };
 
-  return (
-    <View>
-        {getAppleAuthContent()}
-    </View>
-  );
+  return <View>{getAppleAuthContent()}</View>;
 }

@@ -1,12 +1,13 @@
+import { Stack } from 'expo-router';
 import React from 'react';
 import { Button } from 'react-native';
+
+import { View } from '../../../components/Themed';
 import { useAuth } from '../../../components/auth/AuthContext';
 import { removeAuthToken } from '../../../components/auth/AuthService';
-import { Stack } from 'expo-router';
-import { Text, View } from '../../../components/Themed';
 
 export default function Page() {
-  const { checkLoginStatus } = useAuth(); 
+  const { checkLoginStatus } = useAuth();
 
   const handleLogout = async () => {
     // Perform logout logic here

@@ -1,11 +1,12 @@
+import { Image } from 'expo-image';
+import * as ImagePicker from 'expo-image-picker';
+import { Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { StyleSheet, Button } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Image } from 'expo-image';
-import { Stack } from 'expo-router';
+
 import { View } from '../../../components/Themed';
 
-export default function Page () {
+export default function Page() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const openImagePicker = async () => {
@@ -25,10 +26,12 @@ export default function Page () {
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Post' }} />
       <Button title="Upload an image" onPress={openImagePicker} />
-      {selectedImage && <Image source={{ uri: selectedImage }} style={{ width: 200, height: 200 }} />}
+      {selectedImage && (
+        <Image source={{ uri: selectedImage }} style={{ width: 200, height: 200 }} />
+      )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

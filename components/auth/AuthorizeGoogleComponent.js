@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import * as Google from 'expo-auth-session/providers/google';
-import { encode } from 'base-64';
-import { Button } from 'react-native-elements';
-import { FontAwesome } from '@expo/vector-icons';
-import client from './Client';
 import { gql } from '@apollo/client';
-import { saveAuthToken } from '../../components/auth/AuthService';
+import { FontAwesome } from '@expo/vector-icons';
+import { encode } from 'base-64';
+import * as Google from 'expo-auth-session/providers/google';
+import fetch from 'node-fetch';
+import { useEffect } from 'react';
+import { View } from 'react-native';
+import { Button } from 'react-native-elements';
+
+import client from './Client';
 import { useAuth } from '../../components/auth/AuthContext';
+import { saveAuthToken } from '../../components/auth/AuthService';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const IOS_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
-const ANDROID_CLIENT_ID = '704374595989-g00b78dpjrdt6mqof4l5r23rrc6fh9j9.apps.googleusercontent.com';
-const GOOGLE_REDIRECT_URI = 'com.googleusercontent.apps.704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q:/oauthredirect';
+const ANDROID_CLIENT_ID =
+  '704374595989-g00b78dpjrdt6mqof4l5r23rrc6fh9j9.apps.googleusercontent.com';
+const GOOGLE_REDIRECT_URI =
+  'com.googleusercontent.apps.704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q:/oauthredirect';
 
 export default function AuthorizeGoogleComponent() {
-  const { checkLoginStatus } = useAuth(); 
+  const { checkLoginStatus } = useAuth();
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: IOS_CLIENT_ID,
     androidClientId: ANDROID_CLIENT_ID,
@@ -46,7 +50,7 @@ export default function AuthorizeGoogleComponent() {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': authHeader,
+              Authorization: authHeader,
             },
             body: JSON.stringify({
               query: `
@@ -89,8 +93,7 @@ export default function AuthorizeGoogleComponent() {
               `,
               data: { user },
             });
-          
-            console.log('User data written to cache:', user); // Add this line
+
             await saveAuthToken(token);
             checkLoginStatus();
           } else {
@@ -120,18 +123,16 @@ export default function AuthorizeGoogleComponent() {
   };
 
   return (
-    <View>
+    <View style={{ width: 375 }}>
       <Button
         onPress={() => promptAsync()}
-        buttonStyle={{ backgroundColor: 'white', borderRadius: 5, paddingVertical: 11, paddingHorizontal: 15 }}
-        icon={
-          <FontAwesome
-            name="google"
-            size={13}
-            color="black"
-            style={{ marginRight: 6 }}
-          />
-        }
+        buttonStyle={{
+          backgroundColor: 'white',
+          borderRadius: 5,
+          paddingVertical: 11,
+          paddingHorizontal: 15,
+        }}
+        icon={<FontAwesome name="google" size={13} color="black" style={{ marginRight: 6 }} />}
         title="Sign in with Google"
         titleStyle={{ fontSize: 17, color: 'black', fontWeight: '500' }}
       />

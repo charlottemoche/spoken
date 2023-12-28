@@ -1,7 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Image } from 'expo-image';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-import { Image } from 'expo-image';
+
 import Colors from '../../constants/Colors';
 
 /**
@@ -22,8 +23,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}
-    >
+      }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -39,7 +39,11 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon size={22} name="home-outline" color={color} />,
           headerLeft: () => (
             <Image
-              source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),
@@ -66,20 +70,28 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon size={22} name="search" color={color} />,
           headerLeft: () => (
             <Image
-              source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),
         }}
       />
-     <Tabs.Screen
+      <Tabs.Screen
         name="post"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon size={32} name="add-circle" color='#E1EC41' />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={32} name="add-circle" color="#E1EC41" />,
           headerLeft: () => (
             <Image
-              source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),
@@ -92,8 +104,11 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon size={24} name="at-sharp" color={color} />,
           headerLeft: () => (
             <Image
-              source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
-
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),
@@ -106,8 +121,11 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon size={20} name="person-outline" color={color} />,
           headerLeft: () => (
             <Image
-              source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
-
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),
@@ -130,12 +148,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-        title: '',
+          title: '',
           href: null,
           headerLeft: () => (
             <Image
-                source={colorScheme === 'dark' ? require('../../assets/images/logo-white.png') : require('../../assets/images/logo.png')}
-
+              source={
+                colorScheme === 'dark'
+                  ? require('../../assets/images/logo-white.png')
+                  : require('../../assets/images/logo.png')
+              }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
           ),

@@ -1,14 +1,17 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View } from 'react-native';
-import AuthorizeGoogleComponent from '../components/auth/AuthorizeGoogleComponent';
+
 import AuthorizeAppleComponent from '../components/auth/AuthorizeAppleComponent';
+import AuthorizeGoogleComponent from '../components/auth/AuthorizeGoogleComponent';
 
 export default function EnterScreen() {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/splash.png')} style={styles.backgroundImage}>
+      <ImageBackground
+        source={require('../assets/images/splash.png')}
+        style={styles.backgroundImage}>
         <View style={styles.bottomDiv}>
-        <AuthorizeAppleComponent />
+          <AuthorizeAppleComponent />
           <View style={styles.padding} />
           <AuthorizeGoogleComponent />
         </View>
