@@ -5,7 +5,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
-import client from '../constants/Client';
+import client from '../components/auth/Client';
 import { AuthProvider, useAuth } from '../components/auth/AuthContext';
 import EnterScreen from './enter';
 

@@ -5,10 +5,9 @@ export default {
   light: {
     text: '#000',
     background: '#fff',
-    tint: '#808080',
+    tint: '#000',
     tabIconDefault: '#ccc',
-    tabIconSelected: '#808080',
-    tabSelectedBackground: '#121212',
+    tabIconSelected: '#000',
   },
   dark: {
     text: '#fff',
@@ -16,7 +15,6 @@ export default {
     tint: '#fff',
     tabIconDefault: '#ccc',
     tabIconSelected: '#fff',
-    tabSelectedBackground: '#121212',
   },
 };
 

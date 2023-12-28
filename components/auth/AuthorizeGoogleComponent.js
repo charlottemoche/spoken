@@ -4,7 +4,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
 import { Button } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
-import client from '../../constants/Client';
+import client from './Client';
 import { gql } from '@apollo/client';
 import { saveAuthToken } from '../../components/auth/AuthService';
 import { useAuth } from '../../components/auth/AuthContext';
