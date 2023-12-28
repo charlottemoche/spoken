@@ -2,13 +2,19 @@ import React from 'react';
 import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { View, Text } from 'react-native';
 import { Link, Stack } from 'expo-router';
+import { useColorScheme } from 'react-native';
 
-export default function Item() {
+export default function Id() {
+
+  const colorScheme = useColorScheme();
+
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Item' }} />
-        <Image source={require('../../../assets/images/placeholder.png')} style={styles.image} />
-        <Text>Item Name</Text>
+      <Stack.Screen
+        options={{ headerShown: true, title: '', headerTintColor: colorScheme === 'dark' ? 'white' : 'black' }}
+      />
+        <Image source={require('../../../assets/images/placeholder.png')} style={ styles.image } />
+        <Text style={ styles.itemText }>Item Name</Text>
     </View>
   );
 }
@@ -20,7 +26,12 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: '100%',
-        resizeMode: 'cover', // Ensure that the image covers the entire container
+        height: '30%',
+        borderRadius: 8,
+    },
+    itemText: {
+        fontSize: 24,
+        fontWeight: '500',
+        marginTop: 16,
     },
 });

@@ -22,6 +22,10 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+          tabBarStyle: {
+            backgroundColor: '#121212',
+            height: 90,
+          },
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
@@ -84,7 +88,7 @@ export default function TabLayout() {
         name="post"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon size={32} name="add-circle" color="#E1EC41" />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={42} name="add-circle" color="#E1EC41" />,
           headerLeft: () => (
             <Image
               source={

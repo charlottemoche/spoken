@@ -9,9 +9,7 @@ const cache = new InMemoryCache();
 
 // Define an asynchronous function to handle cache persistence
 const persistCacheAsync = async () => {
-  // Use try-catch block to handle potential errors
   try {
-    // Persist the cache using SecureStore
     await persistCache({
       cache,
       storage: {

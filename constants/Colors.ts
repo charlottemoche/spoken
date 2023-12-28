@@ -5,9 +5,9 @@ export default {
   light: {
     text: '#000',
     background: '#fff',
-    tint: '#121212',
+    tint: '#fff',
     tabIconDefault: '#ccc',
-    tabIconSelected: '#000',
+    tabIconSelected: '#fff',
     accentColor: accentColorPrimary,
     headerTintColor: '#000',
   },

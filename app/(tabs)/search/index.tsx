@@ -1,18 +1,31 @@
+import React from 'react';
+import { FlatList, StyleSheet, Pressable, ScrollView, TouchableOpacity } from 'react-native';
 import { Link, Stack } from 'expo-router';
-import { TextInput, FlatList, Image, StyleSheet } from 'react-native';
-
 import { Text, View } from '../../../components/Themed';
+import { TextInput } from 'react-native-gesture-handler';
+import { Image } from 'expo-image';
 
-const images = [
-  { id: 1, source: require('../../../assets/images/placeholder.png') },
-  { id: 2, source: require('../../../assets/images/placeholder.png') },
-  { id: 3, source: require('../../../assets/images/placeholder.png') },
-  { id: 4, source: require('../../../assets/images/placeholder.png') },
-  { id: 5, source: require('../../../assets/images/placeholder.png') },
-  // Add more results here
+const results = [
+  { id: 1, name: 'Result 1', image: require('../../../assets/images/placeholder.png') },
+  { id: 2, name: 'Result 2', image: require('../../../assets/images/placeholder.png') },
+  { id: 3, name: 'Result 3', image: require('../../../assets/images/placeholder.png') },
+  { id: 4, name: 'Result 4', image: require('../../../assets/images/placeholder.png') },
+  { id: 5, name: 'Result 5', image: require('../../../assets/images/placeholder.png') },
 ];
 
 const searches = ['Search 1', 'Search 2', 'Search 3', 'Search 4', 'Search 5'];
+
+const renderItem = ({ item }: { item: { id: number, name: string, image: any } }) => (
+  <View style={styles.itemContainer}>
+    <Link href={`/search/results`} asChild style={styles.item}>
+      <Pressable>
+        {({ pressed }) => (
+          <Image source={item.image} style={{ opacity: pressed ? 0.5 : 1 }} />
+        )}
+      </Pressable>
+    </Link>
+  </View>
+);
 
 export default function Page() {
   return (
@@ -23,52 +36,59 @@ export default function Page() {
         placeholder="Search products, interests, and brands"
         placeholderTextColor="#808080"
       />
-      <Link href="/search/results">
-        <FlatList
-          data={images}
-          horizontal
-          style={styles.flatListContent}
-          renderItem={({ item }) => <Image source={item.source} style={styles.image} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </Link>
+      <FlatList
+        data={results}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal={true}
+      />
       <Text style={styles.frequentlySearchedText}>FREQUENTLY SEARCHED BY YOUR CONNECTIONS</Text>
-      <Link href="/search/results">
-        <FlatList
-          data={searches}
-          renderItem={({ item }) => <Text style={styles.searchText}>{item}</Text>}
-          keyExtractor={(item) => item}
-          />
-      </Link>
+      <FlatList
+        data={searches}
+        renderItem={({ item }) => (
+          <Link href={`/search/${item}`}>
+            <Pressable>
+              <Text style={styles.searchText}>{item}</Text>
+            </Pressable>
+          </Link>
+        )}
+        keyExtractor={(item) => item}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 6,
+    justifyContent: 'flex-start',
   },
-  flatListContent: {
-    flexGrow: 0,
+  itemContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    overflow: 'hidden',
+    padding: 10
+  },
+  item: {
+    height: 100,
+    width: 100,
+    backgroundColor: 'gray',
+    borderRadius: 8,
+    overflow: 'hidden',
+    contentFit: 'cover',
   },
   searchBar: {
     height: 50,
     borderRadius: 20,
     backgroundColor: '#8F91991A',
-    margin: 10,
-    padding: 10,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginVertical: 10,
     marginHorizontal: 10,
-    borderRadius: 8,
+    marginVertical: 16,
+    padding: 10,
   },
   frequentlySearchedText: {
     fontSize: 16,
     fontWeight: 'bold',
+    paddingTop: 10,
     margin: 10,
   },
   searchText: {

@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { View, Text } from 'react-native';
+import { FlatList, StyleSheet, Image } from 'react-native';
+import { Pressable } from 'react-native';
+import { View, Text } from '../../../components/Themed';
 import { Link, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
@@ -12,15 +13,19 @@ export default function Results() {
     { id: 2, name: 'Result 2', image: require('../../../assets/images/placeholder.png') },
     { id: 3, name: 'Result 3', image: require('../../../assets/images/placeholder.png') },
     { id: 4, name: 'Result 4', image: require('../../../assets/images/placeholder.png') },
-    { id: 5, name: 'Result 5', image: require('../../../assets/images/placeholder.png') },
-    // Add more results here
   ];
 
   const renderItem = ({ item }: { item: { id: number, name: string, image: any } }) => (
-    <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.image} />
+    <View style={styles.item}>
+      <Link href={`/search/${item.id}`} asChild>
+        <Pressable>
+          {({ pressed }) => (
+            <Image source={item.image} style={{ opacity: pressed ? 0.5 : 1 }} />
+          )}
+        </Pressable>
+      </Link>
       <Text style={styles.name}>{item.name}</Text>
-    </TouchableOpacity>
+    </View>
   );
 
   return (

@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Image } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
 import { Stack } from 'expo-router';
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Image } from 'react-native';
-
 import { Text, View } from '../../../components/Themed';
 
 const GET_USER = gql`
@@ -32,50 +32,37 @@ export default function Page() {
   };
 
   return (
-    <View style={styles.container}>
+      <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
       <View style={styles.profileContainer}>
         <View>
-          <Image style={styles.avatar} source={require('../../../assets/images/placeholder.png')} />
-          <Text lightColor="black" darkColor="#E0E0E0" style={styles.username}>
-            {data.user.firstName} {data.user.lastName}
-          </Text>
-          <Text lightColor="black" darkColor="white" style={{ paddingVertical: 2 }}>
-            Bio
-          </Text>
+            <Image
+              style={styles.avatar}
+              source={require('../../../assets/images/placeholder.png')}
+            />
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.firstName} {data.user.lastName}</Text>
+          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 2 }}>Bio</Text>
         </View>
       </View>
-      <View lightColor="gray" darkColor="gray" style={styles.separator} />
+      <View lightColor='gray' darkColor='gray' style={styles.separator} />
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
-          onPress={() => setActiveTab('Posts')}>
-          <Text
-            lightColor="black"
-            darkColor="white"
-            style={[activeTab === 'Posts' && styles.activeTabText]}>
-            Posts
-          </Text>
+          onPress={() => setActiveTab('Posts')}
+        >
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>Posts</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Products' && styles.activeTab]}
-          onPress={() => setActiveTab('Products')}>
-          <Text
-            lightColor="black"
-            darkColor="white"
-            style={[activeTab === 'Products' && styles.activeTabText]}>
-            Products
-          </Text>
+          onPress={() => setActiveTab('Products')}
+        >
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Connections' && styles.activeTab]}
-          onPress={() => setActiveTab('Connections')}>
-          <Text
-            lightColor="black"
-            darkColor="white"
-            style={[activeTab === 'Connections' && styles.activeTabText]}>
-            Connections
-          </Text>
+          onPress={() => setActiveTab('Connections')}
+        >
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Connections' && styles.activeTabText]}>Connections</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>{renderTabContent()}</View>
@@ -123,10 +110,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   activeTab: {
-    backgroundColor: '#222222',
+    backgroundColor: '#222222'
   },
   activeTabText: {
-    color: 'white',
+    color: 'white'
   },
   content: {
     margin: 10,
