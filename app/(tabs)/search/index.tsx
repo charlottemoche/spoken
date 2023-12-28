@@ -9,6 +9,7 @@ const images = [
   { id: 3, source: require('../../../assets/images/placeholder.png') },
   { id: 4, source: require('../../../assets/images/placeholder.png') },
   { id: 5, source: require('../../../assets/images/placeholder.png') },
+  // Add more results here
 ];
 
 const searches = ['Search 1', 'Search 2', 'Search 3', 'Search 4', 'Search 5'];
@@ -22,19 +23,23 @@ export default function Page() {
         placeholder="Search products, interests, and brands"
         placeholderTextColor="#808080"
       />
-      <FlatList
-        data={images}
-        horizontal
-        style={styles.flatListContent}
-        renderItem={({ item }) => <Image source={item.source} style={styles.image} />}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      <Link href="/search/results">
+        <FlatList
+          data={images}
+          horizontal
+          style={styles.flatListContent}
+          renderItem={({ item }) => <Image source={item.source} style={styles.image} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </Link>
       <Text style={styles.frequentlySearchedText}>FREQUENTLY SEARCHED BY YOUR CONNECTIONS</Text>
-      <FlatList
-        data={searches}
-        renderItem={({ item }) => <Text style={styles.searchText}>{item}</Text>}
-        keyExtractor={(item) => item}
-      />
+      <Link href="/search/results">
+        <FlatList
+          data={searches}
+          renderItem={({ item }) => <Text style={styles.searchText}>{item}</Text>}
+          keyExtractor={(item) => item}
+          />
+      </Link>
     </View>
   );
 }
@@ -59,6 +64,7 @@ const styles = StyleSheet.create({
     height: 100,
     marginVertical: 10,
     marginHorizontal: 10,
+    borderRadius: 8,
   },
   frequentlySearchedText: {
     fontSize: 16,
