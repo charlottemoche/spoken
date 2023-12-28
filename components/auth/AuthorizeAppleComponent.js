@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Platform } from 'react-native';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { encode } from 'base-64';
-import client from '../../constants/Client';
+import client from './Client';
 import { gql } from '@apollo/client';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';

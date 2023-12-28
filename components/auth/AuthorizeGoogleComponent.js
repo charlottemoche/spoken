@@ -4,16 +4,18 @@ import * as Google from 'expo-auth-session/providers/google';
 import { encode } from 'base-64';
 import { Button } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
-import client from '../../constants/Client';
+import client from './Client';
 import { gql } from '@apollo/client';
+import { saveAuthToken } from '../../components/auth/AuthService';
+import { useAuth } from '../../components/auth/AuthContext';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const IOS_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
-const ANDROID_CLIENT_ID = '704374595989-g00b78dpjrdt6mqof4l5r23rrc6fh9j9.apps.googleusercontent.com'
+const ANDROID_CLIENT_ID = '704374595989-g00b78dpjrdt6mqof4l5r23rrc6fh9j9.apps.googleusercontent.com';
 const GOOGLE_REDIRECT_URI = 'com.googleusercontent.apps.704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q:/oauthredirect';
 
 export default function AuthorizeGoogleComponent() {
-  const [userInfo, setUserInfo] = useState(null);
+  const { checkLoginStatus } = useAuth(); 
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: IOS_CLIENT_ID,
     androidClientId: ANDROID_CLIENT_ID,
@@ -27,10 +29,9 @@ export default function AuthorizeGoogleComponent() {
       try {
         if (response && response.type === 'success') {
           const userInfoResponse = await getUserInfo(response.authentication.accessToken);
-          console.log('UserInfo:', userInfoResponse);
-    
+
           const authHeader = 'Basic ' + encode('mobile-app' + ':' + 'hellospoken123');
-    
+
           const authorizeInput = {
             providerRefid: userInfoResponse?.id || '',
             provider: 'GOOGLE',
@@ -38,9 +39,9 @@ export default function AuthorizeGoogleComponent() {
             image: userInfoResponse?.picture || '',
             email: userInfoResponse?.email || '',
           };
-    
+
           console.log('AuthorizeInput:', authorizeInput);
-    
+
           const mutationResponse = await fetch(GRAPHQL_ENDPOINT, {
             method: 'POST',
             headers: {
@@ -69,11 +70,11 @@ export default function AuthorizeGoogleComponent() {
               variables: { authorizeInput },
             }),
           });
-    
+
           const mutationResult = await mutationResponse.json();
-    
-          console.log('MutationResult:', mutationResult); // Add this line
-    
+
+          console.log('MutationResult:', mutationResult);
+
           if (mutationResult.data && mutationResult.data.authorize) {
             const { token, user } = mutationResult.data.authorize;
 
@@ -88,6 +89,10 @@ export default function AuthorizeGoogleComponent() {
               `,
               data: { user },
             });
+          
+            console.log('User data written to cache:', user); // Add this line
+            await saveAuthToken(token);
+            checkLoginStatus();
           } else {
             console.error('Authorization failed:', mutationResult);
           }
@@ -107,7 +112,6 @@ export default function AuthorizeGoogleComponent() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const userInfoResponse = await response.json();
-      console.log('UserInfoResponse:', userInfoResponse);
       return userInfoResponse;
     } catch (e) {
       console.error('Error fetching user info:', e);
@@ -119,17 +123,17 @@ export default function AuthorizeGoogleComponent() {
     <View>
       <Button
         onPress={() => promptAsync()}
-        buttonStyle={{ backgroundColor: '#4285F4', borderRadius: 5, paddingVertical: 11, paddingHorizontal: 15 }}
+        buttonStyle={{ backgroundColor: 'white', borderRadius: 5, paddingVertical: 11, paddingHorizontal: 15 }}
         icon={
           <FontAwesome
             name="google"
             size={13}
-            color="white"
+            color="black"
             style={{ marginRight: 6 }}
           />
         }
         title="Sign in with Google"
-        titleStyle={{ fontSize: 17, color: 'white', fontWeight: '500' }}
+        titleStyle={{ fontSize: 17, color: 'black', fontWeight: '500' }}
       />
     </View>
   );

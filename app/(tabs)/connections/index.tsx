@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
+import { useColorScheme } from 'react-native';
 
 // Sample data for connections
 const connections = [
