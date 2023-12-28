@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { encode } from 'base-64';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import { View, Platform } from 'react-native';
 
 import client from './Client';

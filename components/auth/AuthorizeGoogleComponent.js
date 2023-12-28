@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { FontAwesome } from '@expo/vector-icons';
 import { encode } from 'base-64';
 import * as Google from 'expo-auth-session/providers/google';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
