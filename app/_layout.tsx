@@ -37,7 +37,6 @@ export default function RootLayout() {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        {/* Wrap the entire RootLayout content in the AuthProvider context */}
         <Content />
       </AuthProvider>
     </ApolloProvider>

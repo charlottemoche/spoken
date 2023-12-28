@@ -89,7 +89,8 @@ export default function AuthorizeGoogleComponent() {
               `,
               data: { user },
             });
-
+          
+            console.log('User data written to cache:', user); // Add this line
             await saveAuthToken(token);
             checkLoginStatus();
           } else {
