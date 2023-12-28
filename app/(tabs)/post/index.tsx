@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
+import { View } from '../../../components/Themed';
 
 export default function Page () {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedTab, setSelectedTab] = useState<'iHave' | 'iWant'>('iHave');
 
   const openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -32,19 +32,6 @@ export default function Page () {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  selectedTab: {
-    backgroundColor: 'blue',
-    color: 'white',
-  },
-  tabContent: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,14 +1,13 @@
 import { Link, Stack } from 'expo-router';
-import { Container, Text, View } from '../../../components/Themed';
-
+import { Text, View } from '../../../components/Themed';
 import { TextInput, FlatList, Image, StyleSheet } from 'react-native';
 
 const images = [
-    { id: 1, source: require('../../../assets/images/icon.png') },
-    { id: 2, source: require('../../../assets/images/icon.png') },
-    { id: 3, source: require('../../../assets/images/icon.png') },
-    { id: 4, source: require('../../../assets/images/icon.png') },
-    { id: 5, source: require('../../../assets/images/icon.png') },
+    { id: 1, source: require('../../../assets/images/placeholder.png') },
+    { id: 2, source: require('../../../assets/images/placeholder.png') },
+    { id: 3, source: require('../../../assets/images/placeholder.png') },
+    { id: 4, source: require('../../../assets/images/placeholder.png') },
+    { id: 5, source: require('../../../assets/images/placeholder.png') },
 ];
 
 const searches = [
@@ -21,12 +20,17 @@ const searches = [
 
 export default function Page() {
     return (
-        <View>
+        <View style={styles.container}>
             <Stack.Screen options={{ headerShown: false, title: "Search" }} />
-            <TextInput style={styles.searchBar} placeholder="Search products, interests, and brands" />
+            <TextInput
+                style={[styles.searchBar, { height: 50 }]}
+                placeholder="Search products, interests, and brands"
+                placeholderTextColor="#808080"
+            />
             <FlatList
                 data={images}
                 horizontal
+                style={styles.flatListContent}
                 renderItem={({ item }) => (
                     <Image source={item.source} style={styles.image} />
                 )}
@@ -45,8 +49,15 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 6,
+    },
+    flatListContent: {
+        flexGrow: 0,
+    },
     searchBar: {
-        height: 40,
+        height: 50,
         borderRadius: 20,
         backgroundColor: '#8F91991A',
         margin: 10,
@@ -55,7 +66,8 @@ const styles = StyleSheet.create({
     image: {
         width: 100,
         height: 100,
-        margin: 10,
+        marginVertical: 10,
+        marginHorizontal: 10,
     },
     frequentlySearchedText: {
         fontSize: 16,

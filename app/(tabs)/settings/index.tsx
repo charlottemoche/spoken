@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { Button } from 'react-native';
 import { useAuth } from '../../../components/auth/AuthContext';
 import { removeAuthToken } from '../../../components/auth/AuthService';
 import { Stack } from 'expo-router';
+import { Text, View } from '../../../components/Themed';
 
 export default function Page() {
   const { checkLoginStatus } = useAuth(); 
@@ -18,7 +19,7 @@ export default function Page() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {/* Adjust the props of Stack.Screen accordingly */}
-      <Stack.Screen options={{ headerShown: false, title: 'Settings' }} />
+      <Stack.Screen options={{ headerShown: true, title: 'Settings' }} />
       <Button title="Logout" onPress={handleLogout} />
     </View>
   );

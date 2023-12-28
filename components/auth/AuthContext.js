@@ -9,8 +9,6 @@ export const AuthProvider = ({ children }) => {
   const checkLoginStatus = async () => {
     const authToken = await getAuthToken();
 
-    console.log('Authentication token:', authToken);
-
     if (authToken) {
       console.log('User is logged in. Token:', authToken);
       setIsLoggedIn(true);

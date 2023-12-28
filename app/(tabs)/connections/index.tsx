@@ -1,16 +1,16 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { Text, View } from '../../../components/Themed';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
-import { useColorScheme } from 'react-native';
 
-// Sample data for connections
+
 const connections = [
-    { id: 1, name: 'Connection 1', avatar: require('../../../assets/images/icon.png') },
-    { id: 2, name: 'Connection 2', avatar: require('../../../assets/images/icon.png') },
-    { id: 3, name: 'Connection 3', avatar: require('../../../assets/images/icon.png') },
-    { id: 4, name: 'Connection 4', avatar: require('../../../assets/images/icon.png') },
-    { id: 5, name: 'Connection 5', avatar: require('../../../assets/images/icon.png') },
+    { id: 1, name: 'Connection 1', avatar: require('../../../assets/images/placeholder.png') },
+    { id: 2, name: 'Connection 2', avatar: require('../../../assets/images/placeholder.png') },
+    { id: 3, name: 'Connection 3', avatar: require('../../../assets/images/placeholder.png') },
+    { id: 4, name: 'Connection 4', avatar: require('../../../assets/images/placeholder.png') },
+    { id: 5, name: 'Connection 5', avatar: require('../../../assets/images/placeholder.png') },
 ];
 
 export default function Page() {

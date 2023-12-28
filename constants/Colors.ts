@@ -1,13 +1,14 @@
-const tintColorPrimary = '#757D00';
-const tintColorSecondary = '#E1EC41';
+const accentColorPrimary = '#757D00';
+const accentColorSecondary = '#E1EC41';
 
 export default {
   light: {
     text: '#000',
     background: '#fff',
-    tint: '#000',
+    tint: '#121212',
     tabIconDefault: '#ccc',
     tabIconSelected: '#000',
+    accentColor: accentColorPrimary,
   },
   dark: {
     text: '#fff',
@@ -15,6 +16,6 @@ export default {
     tint: '#fff',
     tabIconDefault: '#ccc',
     tabIconSelected: '#fff',
+    accentColor: accentColorSecondary,
   },
 };
-
