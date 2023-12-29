@@ -6,19 +6,25 @@ import { Stack } from 'expo-router';
 import { Text, View } from '../../../components/Themed';
 import { appendEndpoint } from '../../../components/auth/Client';
 import { GET_USER } from '../../../components/auth/Queries';
+import Spinner from '../../../components/CoreComponents';
 
 export default function Page() {
-  const endpoint = appendEndpoint('user-connections');
+  const endpoint = appendEndpoint('current-user');
 
-  // Use Apollo Client with the dynamic endpoint
   const { loading, error, data } = useQuery(GET_USER, {
     context: { uri: endpoint },
   });
+
   const [activeTab, setActiveTab] = useState('Posts');
-  if (loading) return <Loading />;
+
+  if (loading) return <Spinner />;
+
   if (error) {
-    console.error('GraphQL error:', error);
-    return <Text>Error :(</Text>;
+    return (
+      <View>
+          <Text>Unable to load profile.</Text>;
+      </View>
+    );
   }
 
   const renderTabContent = () => {
@@ -41,10 +47,10 @@ export default function Page() {
         <View>
             <Image
               style={styles.avatar}
-              source={require('../../../assets/images/placeholder.png')}
+              source={{ uri: data.user.imageSmall }}
             />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.firstName} {data.user.lastName}</Text>
-          {/* <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>Bio</Text> */}
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.fullName}</Text>
+          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{data.user.bio}</Text>
         </View>
       </View>
       <View lightColor='gray' darkColor='gray' style={styles.separator} />
@@ -122,12 +128,3 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
-function Loading() {
-  return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
-      <Text>Loading...</Text>
-    </View>
-  );
-}

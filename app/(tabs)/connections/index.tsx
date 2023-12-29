@@ -6,6 +6,7 @@ import { Stack, Link } from 'expo-router';
 import { appendEndpoint } from '../../../components/auth/Client';
 import { FlatList } from 'react-native-gesture-handler';
 import { Pressable } from 'react-native';
+import Spinner from '../../../components/CoreComponents';
 
 const GET_CONNECTION = gql`
   query {
@@ -38,18 +39,15 @@ export default function Page() {
     context: { uri: endpoint },
   });
 
-  if (loading) return <Loading />
+  if (loading) return <Spinner />;
+
   if (error) {
     console.error('GraphQL error:', error);
-    return <Text>Error :(</Text>;
   }
 
   const connections = data.user.connections.edges;
 
   const renderItem = ({ item }: { item: any }) => {
-    console.log('Rendering item:', item);
-    console.log('item.node.fullName:', item.node.fullName);
-  
     return (
       <Pressable>
         {({ pressed }) => (
@@ -74,7 +72,7 @@ export default function Page() {
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Connections' }} />
       {loading ? (
-        <Loading />
+        <Spinner />
       ) : (
         <FlatList
           data={connections}
@@ -110,12 +108,3 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
-
-function Loading() {
-  return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Connections' }} />
-      <Text>Loading...</Text>
-    </View>
-  );
-}

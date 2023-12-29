@@ -3,8 +3,11 @@ import { gql } from '@apollo/client';
 export const GET_USER = gql`
   query {
     user {
-      firstName
-      lastName
+      fullName
+      email
+      phone
+      bio
+      imageSmall
     }
   }
 `;

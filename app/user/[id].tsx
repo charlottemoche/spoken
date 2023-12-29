@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
 import { Text, View } from '../../components/Themed';
 import { useLocalSearchParams } from 'expo-router';
+import Spinner from '../../components/CoreComponents';
 
 export default function Id() {
   const user = useLocalSearchParams();
-  console.log(user);
   const [activeTab, setActiveTab] = useState('Posts');
 
   const renderTabContent = () => {
+    if (!user) {
+      return <Spinner />
+    }
+
     switch (activeTab) {
       case 'Posts':
         return <Text>Posts content goes here</Text>;
@@ -22,12 +26,14 @@ export default function Id() {
   };
 
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'User' }} />
       <View style={styles.profileContainer}>
         <View>
           <Image style={styles.avatar} source={{ uri: user.image as string }} />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{user.name}</Text>
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>
+            {user ? user.name : 'Loading...'}
+          </Text>
         </View>
       </View>
       <View lightColor='gray' darkColor='gray' style={styles.separator} />
@@ -36,13 +42,17 @@ export default function Id() {
           style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
           onPress={() => setActiveTab('Posts')}
         >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>Posts</Text>
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>
+            Posts
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Products' && styles.activeTab]}
           onPress={() => setActiveTab('Products')}
         >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>
+            Products
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>{renderTabContent()}</View>
