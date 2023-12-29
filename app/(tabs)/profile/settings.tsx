@@ -22,8 +22,7 @@ export default function Page() {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {/* Adjust the props of Stack.Screen accordingly */}
-      <Stack.Screen options={{ headerShown: true, title: 'Settings' }} />
+      <Stack.Screen options={{ headerShown: true, title: 'Settings', headerTintColor: colorScheme === 'dark' ? 'white' : 'black' }} />
       <Button title="Logout" onPress={handleLogout} color={textColor} />
     </View>
   );

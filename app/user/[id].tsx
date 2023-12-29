@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
 import { Text, View } from '../../components/Themed';
@@ -7,7 +7,10 @@ import { useLocalSearchParams } from 'expo-router';
 import Spinner from '../../components/CoreComponents';
 
 export default function Id() {
+  const colorScheme = useColorScheme();
+
   const user = useLocalSearchParams();
+
   const [activeTab, setActiveTab] = useState('Posts');
 
   const renderTabContent = () => {
