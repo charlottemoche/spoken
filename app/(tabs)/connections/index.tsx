@@ -1,40 +1,87 @@
 import { Image } from 'expo-image';
-import { Stack } from 'expo-router';
-import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
-
 import { Text, View } from '../../../components/Themed';
+import { StyleSheet } from 'react-native';
+import { Stack, Link } from 'expo-router';
+import { appendEndpoint } from '../../../components/auth/Client';
+import { FlatList } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native';
 
-const SIMPLE_QUERY = gql`
+const GET_CONNECTION = gql`
   query {
     user {
-      id
-      name
+      bio
+      email
+      fullName
+      imageSmall
+      phone
+      connections {
+        edges {
+          node {
+            email
+            fullName
+            id
+            imageSmall
+          }
+        }
+      }
     }
   }
 `;
 
 export default function Page() {
-  const { loading, error, data } = useQuery(SIMPLE_QUERY);
-  console.log('Data:', data);
+  // Append the endpoint dynamically
+  const endpoint = appendEndpoint('user-connections');
 
-  const renderItem = ({ item }: { item: any }) => (
-    <View style={styles.connectionItem}>
-      <Image source={item.avatar} style={styles.avatar} />
-      <Text>{item.name}</Text>
-    </View>
-  );
+  // Use Apollo Client with the dynamic endpoint
+  const { loading, error, data } = useQuery(GET_CONNECTION, {
+    context: { uri: endpoint },
+  });
+
+  if (loading) return <Loading />
+  if (error) {
+    console.error('GraphQL error:', error);
+    return <Text>Error :(</Text>;
+  }
+
+  const connections = data.user.connections.edges;
+
+  const renderItem = ({ item }: { item: any }) => {
+    console.log('Rendering item:', item);
+    console.log('item.node.fullName:', item.node.fullName);
+  
+    return (
+      <Pressable>
+        {({ pressed }) => (
+          <Link href={{
+            pathname: `/user/[id]`,
+            params: { id: item.node.id, name: item.node.fullName, image: item.node.imageSmall, bio: item.node.bio }
+          }} style={{ opacity: pressed ? 0.5 : 1 }}>
+            <View style={styles.connectionItem}>
+              <Image
+                style={styles.avatar}
+                source={{ uri: item.node.imageSmall }}
+              />
+              <Text style={styles.connectionName}>{item.node.fullName}</Text>
+            </View>
+        </Link>
+      )}
+      </Pressable>
+    );
+  };  
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Home' }} />
-      {/* <Text>{ data.user.connections.edges[0].node.fullName }</Text> */}
-      {/* <FlatList
-        data={connections}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-      /> */}
+      <Stack.Screen options={{ headerShown: false, title: 'Connections' }} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={connections}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.node.id}
+        />
+      )}
     </View>
   );
 }
@@ -42,22 +89,33 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+  connectionInfo: {
+    flex: 1,
+  },
+  connectionName: {
+    fontWeight: '600',
+    fontSize: 18,
   },
   connectionItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    paddingVertical: 10,
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
     marginRight: 10,
   },
 });
+
+function Loading() {
+  return (
+    <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: false, title: 'Connections' }} />
+      <Text>Loading...</Text>
+    </View>
+  );
+}

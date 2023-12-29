@@ -6,7 +6,6 @@ import fetch from 'isomorphic-fetch';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
-
 import client from './Client';
 import { useAuth } from '../../components/auth/AuthContext';
 import { saveAuthToken } from '../../components/auth/AuthService';

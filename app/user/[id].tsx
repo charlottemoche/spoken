@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Image } from 'react-native';
-import { useQuery, gql } from '@apollo/client';
+import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
-import { Text, View } from '../../../components/Themed';
-import { appendEndpoint } from '../../../components/auth/Client';
-import { GET_USER } from '../../../components/auth/Queries';
+import { Text, View } from '../../components/Themed';
+import { useLocalSearchParams } from 'expo-router';
 
-export default function Page() {
-  const endpoint = appendEndpoint('user-connections');
-
-  // Use Apollo Client with the dynamic endpoint
-  const { loading, error, data } = useQuery(GET_USER, {
-    context: { uri: endpoint },
-  });
+export default function Id() {
+  const user = useLocalSearchParams();
+  console.log(user);
   const [activeTab, setActiveTab] = useState('Posts');
-  if (loading) return <Loading />;
-  if (error) {
-    console.error('GraphQL error:', error);
-    return <Text>Error :(</Text>;
-  }
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -27,8 +16,6 @@ export default function Page() {
         return <Text>Posts content goes here</Text>;
       case 'Products':
         return <Text>Products content goes here</Text>;
-      case 'Connections':
-        return <Text>Connections content goes here</Text>;
       default:
         return null;
     }
@@ -36,15 +23,11 @@ export default function Page() {
 
   return (
       <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
+      <Stack.Screen options={{ headerShown: false, title: 'User' }} />
       <View style={styles.profileContainer}>
         <View>
-            <Image
-              style={styles.avatar}
-              source={require('../../../assets/images/placeholder.png')}
-            />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.firstName} {data.user.lastName}</Text>
-          {/* <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>Bio</Text> */}
+          <Image style={styles.avatar} source={{ uri: user.image as string }} />
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{user.name}</Text>
         </View>
       </View>
       <View lightColor='gray' darkColor='gray' style={styles.separator} />
@@ -60,12 +43,6 @@ export default function Page() {
           onPress={() => setActiveTab('Products')}
         >
           <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'Connections' && styles.activeTab]}
-          onPress={() => setActiveTab('Connections')}
-        >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Connections' && styles.activeTabText]}>Connections</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>{renderTabContent()}</View>
@@ -122,12 +99,3 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
-function Loading() {
-  return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
-      <Text>Loading...</Text>
-    </View>
-  );
-}
