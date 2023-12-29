@@ -5,8 +5,8 @@ import fetch from 'isomorphic-fetch';
 import { View, Platform } from 'react-native';
 
 import client from './Client';
-import { useAuth } from '../../components/auth/AuthContext';
-import { saveAuthToken } from '../../components/auth/AuthService';
+import { useAuth } from './AuthContext';
+import { saveAuthToken } from './AuthService';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 

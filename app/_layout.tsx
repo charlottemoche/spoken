@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
 import EnterScreen from './enter';
-import { AuthProvider, useAuth } from '../components/auth/AuthContext';
-import { client } from '../components/auth/Client';
+import { AuthProvider, useAuth } from '../auth/AuthContext';
+import { client } from '../auth/Client';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,7 +50,7 @@ function Content() {
   useEffect(() => {
     SplashScreen.hideAsync();
     checkLoginStatus();
-  }, []); // Run once when component mounts
+  }, []);
 
   useEffect(() => {
     console.log('isLoggedIn after authentication check:', isLoggedIn);
@@ -66,9 +66,10 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack screenOptions={{ headerTintColor: colorScheme === 'dark' ? '#fff' : '#000', headerTitle: '' }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="contacts" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
   );

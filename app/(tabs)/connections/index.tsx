@@ -1,41 +1,20 @@
 import { Image } from 'expo-image';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Text, View } from '../../../components/Themed';
 import { StyleSheet } from 'react-native';
 import { Stack, Link } from 'expo-router';
-import { appendEndpoint } from '../../../components/auth/Client';
+import { appendEndpoint } from '../../../auth/Client';
 import { FlatList } from 'react-native-gesture-handler';
 import { Pressable } from 'react-native';
 import Spinner from '../../../components/CoreComponents';
-
-const GET_CONNECTION = gql`
-  query {
-    user {
-      bio
-      email
-      fullName
-      imageSmall
-      phone
-      connections {
-        edges {
-          node {
-            email
-            fullName
-            id
-            imageSmall
-          }
-        }
-      }
-    }
-  }
-`;
+import { GET_CONNECTIONS } from '../../../auth/Queries';
 
 export default function Page() {
   // Append the endpoint dynamically
   const endpoint = appendEndpoint('user-connections');
 
   // Use Apollo Client with the dynamic endpoint
-  const { loading, error, data } = useQuery(GET_CONNECTION, {
+  const { loading, error, data } = useQuery(GET_CONNECTIONS, {
     context: { uri: endpoint },
   });
 
@@ -60,7 +39,10 @@ export default function Page() {
                 style={styles.avatar}
                 source={{ uri: item.node.imageSmall }}
               />
-              <Text style={styles.connectionName}>{item.node.fullName}</Text>
+              <View style={styles.connectionInfo}>
+                <Text style={styles.connectionName}>{item.node.fullName}</Text>
+                <Text style={styles.connectionInfo}>{item.node.bio}</Text>
+              </View>
             </View>
         </Link>
       )}
@@ -90,11 +72,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   connectionInfo: {
-    flex: 1,
+    flexDirection: 'column',
   },
   connectionName: {
     fontWeight: '600',
-    fontSize: 18,
+    fontSize: 16,
   },
   connectionItem: {
     flexDirection: 'row',

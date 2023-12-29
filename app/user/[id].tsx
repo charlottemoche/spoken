@@ -7,8 +7,6 @@ import { useLocalSearchParams } from 'expo-router';
 import Spinner from '../../components/CoreComponents';
 
 export default function Id() {
-  const colorScheme = useColorScheme();
-
   const user = useLocalSearchParams();
 
   const [activeTab, setActiveTab] = useState('Posts');

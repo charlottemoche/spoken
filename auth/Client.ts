@@ -7,19 +7,12 @@ const BASE_URL = 'https://spkn.app/api/';
 
 const cache = new InMemoryCache({
   typePolicies: {
-    User: {
+    Query: {
       fields: {
-        connections: {
-          merge(existing = {}, incoming) {
-            const mergedNodes = [...(existing.edges || []), ...incoming.edges];
-            const uniqueNodes = Array.from(
-              new Map(mergedNodes.map((edge) => [edge.node.email, edge])).values()
-            );
-
-            return {
-              ...existing,
-              edges: uniqueNodes.map((node) => ({ node })),
-            };
+        user: {
+          keyArgs: ["email"],
+          merge(existing, incoming) {
+            return { ...existing, ...incoming };
           },
         },
       },
@@ -31,25 +24,25 @@ const cache = new InMemoryCache({
 const AUTH_TOKEN_KEY = 'authToken';
 
 // Define an asynchronous function to handle cache persistence
-const persistCacheAsync = async () => {
-  try {
-    await persistCache({
-      cache,
-      storage: {
-        getItem: SecureStore.getItemAsync,
-        setItem: SecureStore.setItemAsync,
-        removeItem: SecureStore.deleteItemAsync,
-      },
-    });
+// const persistCacheAsync = async () => {
+//   try {
+//     await persistCache({
+//       cache,
+//       storage: {
+//         getItem: SecureStore.getItemAsync,
+//         setItem: SecureStore.setItemAsync,
+//         removeItem: SecureStore.deleteItemAsync,
+//       },
+//     });
 
-    console.log('Cache persisted successfully.');
-  } catch (error) {
-    console.error('Error persisting cache:', error);
-  }
-};
+//     console.log('Cache persisted successfully.');
+//   } catch (error) {
+//     console.error('Error persisting cache:', error);
+//   }
+// };
 
-// Call the asynchronous function to persist the cache
-persistCacheAsync();
+// // Call the asynchronous function to persist the cache
+// persistCacheAsync();
 
 // Create an http link
 const httpLink = createHttpLink({

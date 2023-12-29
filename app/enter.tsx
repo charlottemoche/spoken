@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, View } from 'react-native';
 
-import AuthorizeAppleComponent from '../components/auth/AuthorizeAppleComponent';
-import AuthorizeGoogleComponent from '../components/auth/AuthorizeGoogleComponent';
+import AuthorizeAppleComponent from '../auth/AuthorizeAppleComponent';
+import AuthorizeGoogleComponent from '../auth/AuthorizeGoogleComponent';
 
 export default function EnterScreen() {
   return (

@@ -4704,6 +4704,13 @@ expo-constants@~15.0.0:
     "@expo/config" "~8.3.0"
     uuid "^3.3.2"
 
+expo-contacts@^12.4.0:
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/expo-contacts/-/expo-contacts-12.4.0.tgz#58f86165d44bf9e83621684148a9c0c09c2fbaa8"
+  integrity sha512-PXLvORckrXaerGSfASjGlY2WA/Cb4m5KHFUa0SHpT+sB3tsctyoUKK8rxiwo9vaGS1up7YmvWnbfdX57S9qRNw==
+  dependencies:
+    uuid "^3.4.0"
+
 expo-crypto@^12.6.0, expo-crypto@~12.6.0:
   version "12.6.0"
   resolved "https://registry.yarnpkg.com/expo-crypto/-/expo-crypto-12.6.0.tgz#2b648ab4832338122460f4444ff15de1d35dd026"

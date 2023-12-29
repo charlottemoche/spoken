@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import client from './Client';
-import { useAuth } from '../../components/auth/AuthContext';
-import { saveAuthToken } from '../../components/auth/AuthService';
+import { useAuth } from './AuthContext';
+import { saveAuthToken } from './AuthService';
 
 const GRAPHQL_ENDPOINT = 'https://spkn.app/api/authorize';
 const IOS_CLIENT_ID = '704374595989-fl5vcjcvdfca0dt0ocr6jgn4vqf74v9q.apps.googleusercontent.com';
@@ -80,19 +80,6 @@ export default function AuthorizeGoogleComponent() {
 
           if (mutationResult.data && mutationResult.data.authorize) {
             const { token, user } = mutationResult.data.authorize;
-
-            client.writeQuery({
-              query: gql`
-                query {
-                  user @client {
-                    firstName
-                    lastName
-                  }
-                }
-              `,
-              data: { user },
-            });
-
             await saveAuthToken(token);
             checkLoginStatus();
           } else {

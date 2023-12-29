@@ -4,25 +4,55 @@ import { Image } from 'react-native';
 import { useQuery, gql } from '@apollo/client';
 import { Stack } from 'expo-router';
 import { Text, View } from '../../../components/Themed';
-import { appendEndpoint } from '../../../components/auth/Client';
-import { GET_USER } from '../../../components/auth/Queries';
+import { appendEndpoint } from '../../../auth/Client';
+import { GET_USER, GET_CURR_USER_PRODUCTS } from '../../../auth/Queries';
 import Spinner from '../../../components/CoreComponents';
+import { FlatList } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native';
+import { Link } from 'expo-router';
 
 export default function Page() {
-  const endpoint = appendEndpoint('current-user');
+  
+  const userEndpoint = appendEndpoint('current-user');
 
-  const { loading, error, data } = useQuery(GET_USER, {
-    context: { uri: endpoint },
+  const productsEndpoint = appendEndpoint('current-user-products');
+
+  const { loading: userLoading, error: userError, data: userData } = useQuery(GET_USER, {
+    context: { uri: userEndpoint, fetchPolicy: 'network-only' },
+  });
+
+  const { loading: productsLoading, error: postsError, data: productsData } = useQuery(GET_CURR_USER_PRODUCTS, {
+    context: { uri: productsEndpoint, fetchPolicy: 'network-only' },
   });
 
   const [activeTab, setActiveTab] = useState('Posts');
 
-  if (loading) return <Spinner />;
+  if (userLoading || productsLoading) return <Spinner />;
 
-  if (error) {
+  if (userError) {
     return (
       <View>
-          <Text>Unable to load profile.</Text>;
+        <Text>Unable to load profile.</Text>
+      </View>
+    );
+  }
+
+  if (postsError) {
+    return (
+      <View>
+        <Text>Unable to load posts.</Text>
+      </View>
+    );
+  }
+
+  const renderProduct = ({ item }: { item: any }) => {
+    return (
+      <View style={styles.productContainer}>
+        <Image
+          style={styles.productImage}
+          source={{ uri: item.node.product.defaultImage }}
+        />
+        <Text style={styles.productName}>{item.node.product.name}</Text>
       </View>
     );
   }
@@ -32,7 +62,16 @@ export default function Page() {
       case 'Posts':
         return <Text>Posts content goes here</Text>;
       case 'Products':
-        return <Text>Products content goes here</Text>;
+        return (
+          <View>
+            <FlatList
+              data={productsData.user.products.edges}
+              renderItem={renderProduct}
+              keyExtractor={(item) => item.node.id}
+              numColumns={2}
+            />
+          </View>
+        );
       case 'Connections':
         return <Text>Connections content goes here</Text>;
       default:
@@ -41,16 +80,16 @@ export default function Page() {
   };
 
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
       <View style={styles.profileContainer}>
         <View>
-            <Image
-              style={styles.avatar}
-              source={{ uri: data.user.imageSmall }}
-            />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.fullName}</Text>
-          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{data.user.bio}</Text>
+          <Image
+            style={styles.avatar}
+            source={{ uri: userData.user.imageSmall }}
+          />
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{userData.user.fullName}</Text>
+          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{userData.user.bio}</Text>
         </View>
       </View>
       <View lightColor='gray' darkColor='gray' style={styles.separator} />
@@ -126,5 +165,31 @@ const styles = StyleSheet.create({
   },
   content: {
     margin: 10,
+  },
+  productContainer: {
+    flex: 1,
+    margin: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 200,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  productImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  productName: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white',
+    padding: 8,
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

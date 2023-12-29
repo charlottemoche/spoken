@@ -52,7 +52,7 @@ export default function TabLayout() {
             />
           ),
           headerRight: () => (
-            <Link href="/connections" asChild>
+            <Link href="/contacts" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <Ionicons

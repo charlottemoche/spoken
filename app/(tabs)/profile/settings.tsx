@@ -3,8 +3,8 @@ import React from 'react';
 import { Button, useColorScheme } from 'react-native';
 
 import { View } from '../../../components/Themed';
-import { useAuth } from '../../../components/auth/AuthContext';
-import { removeAuthToken } from '../../../components/auth/AuthService';
+import { useAuth } from '../../../auth/AuthContext';
+import { removeAuthToken } from '../../../auth/AuthService';
 
 export default function Page() {
   const { checkLoginStatus } = useAuth();
@@ -22,7 +22,7 @@ export default function Page() {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Stack.Screen options={{ headerShown: true, title: 'Settings', headerTintColor: colorScheme === 'dark' ? 'white' : 'black' }} />
+      <Stack.Screen options={{ headerShown: true, title: 'Settings', headerTintColor: textColor }} />
       <Button title="Logout" onPress={handleLogout} color={textColor} />
     </View>
   );
