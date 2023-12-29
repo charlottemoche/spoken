@@ -8,7 +8,7 @@ import { useColorScheme } from 'react-native';
 
 import EnterScreen from './enter';
 import { AuthProvider, useAuth } from '../components/auth/AuthContext';
-import client from '../components/auth/Client';
+import { client } from '../components/auth/Client';
 
 export {
   // Catch any errors thrown by the Layout component.

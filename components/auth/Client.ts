@@ -1,11 +1,34 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { persistCache } from 'apollo3-cache-persist';
 import * as SecureStore from 'expo-secure-store';
+import { setContext } from '@apollo/client/link/context';
 
-const BASE_URL = 'https://spoken.app/api';
+const BASE_URL = 'https://spkn.app/api/';
 
-// Create an InMemoryCache instance
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      fields: {
+        connections: {
+          merge(existing = {}, incoming) {
+            const mergedNodes = [...(existing.edges || []), ...incoming.edges];
+            const uniqueNodes = Array.from(
+              new Map(mergedNodes.map((edge) => [edge.node.email, edge])).values()
+            );
+
+            return {
+              ...existing,
+              edges: uniqueNodes.map((node) => ({ node })),
+            };
+          },
+        },
+      },
+    },
+  },
+});
+
+// Define the authentication token storage key
+const AUTH_TOKEN_KEY = 'authToken';
 
 // Define an asynchronous function to handle cache persistence
 const persistCacheAsync = async () => {
@@ -28,10 +51,42 @@ const persistCacheAsync = async () => {
 // Call the asynchronous function to persist the cache
 persistCacheAsync();
 
-// Create Apollo Client instance with the persisted cache
-const client = new ApolloClient({
+// Create an http link
+const httpLink = createHttpLink({
   uri: BASE_URL,
-  cache,
 });
 
-export default client;
+// Create an authentication link
+const authLink = setContext(async (_, { headers }) => {
+  // Retrieve the authentication token from SecureStore
+  const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY);
+
+  // Return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+// Combine the http link and the authentication link
+const link = authLink.concat(httpLink);
+
+// Create a function to append the endpoint to the base URL
+const appendEndpoint = (endpoint: string) => {
+  return `${BASE_URL}${endpoint}`;
+};
+
+// Create Apollo Client instance with the persisted cache and the combined link
+const client = new ApolloClient({
+  link,
+  cache,
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'cache-first',
+    },
+  },
+});
+
+export { client, appendEndpoint };

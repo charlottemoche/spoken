@@ -1,56 +1,42 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Image } from 'react-native';
-import { useQuery, gql } from '@apollo/client';
+import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
-import { Text, View } from '../../../components/Themed';
-import { appendEndpoint } from '../../../components/auth/Client';
-import { GET_USER } from '../../../components/auth/Queries';
-import Spinner from '../../../components/CoreComponents';
+import { Text, View } from '../../components/Themed';
+import { useLocalSearchParams } from 'expo-router';
+import Spinner from '../../components/CoreComponents';
 
-export default function Page() {
-  const endpoint = appendEndpoint('current-user');
+export default function Id() {
+  const colorScheme = useColorScheme();
 
-  const { loading, error, data } = useQuery(GET_USER, {
-    context: { uri: endpoint },
-  });
+  const user = useLocalSearchParams();
 
   const [activeTab, setActiveTab] = useState('Posts');
 
-  if (loading) return <Spinner />;
-
-  if (error) {
-    return (
-      <View>
-          <Text>Unable to load profile.</Text>;
-      </View>
-    );
-  }
-
   const renderTabContent = () => {
+    if (!user) {
+      return <Spinner />
+    }
+
     switch (activeTab) {
       case 'Posts':
         return <Text>Posts content goes here</Text>;
       case 'Products':
         return <Text>Products content goes here</Text>;
-      case 'Connections':
-        return <Text>Connections content goes here</Text>;
       default:
         return null;
     }
   };
 
   return (
-      <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
+    <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: false, title: 'User' }} />
       <View style={styles.profileContainer}>
         <View>
-            <Image
-              style={styles.avatar}
-              source={{ uri: data.user.imageSmall }}
-            />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{data.user.fullName}</Text>
-          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{data.user.bio}</Text>
+          <Image style={styles.avatar} source={{ uri: user.image as string }} />
+          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>
+            {user ? user.name : 'Loading...'}
+          </Text>
         </View>
       </View>
       <View lightColor='gray' darkColor='gray' style={styles.separator} />
@@ -59,19 +45,17 @@ export default function Page() {
           style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
           onPress={() => setActiveTab('Posts')}
         >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>Posts</Text>
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>
+            Posts
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Products' && styles.activeTab]}
           onPress={() => setActiveTab('Products')}
         >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'Connections' && styles.activeTab]}
-          onPress={() => setActiveTab('Connections')}
-        >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Connections' && styles.activeTabText]}>Connections</Text>
+          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>
+            Products
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>{renderTabContent()}</View>

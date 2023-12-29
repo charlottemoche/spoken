@@ -134,42 +134,11 @@ export default function TabLayout() {
             />
           ),
           headerRight: () => (
-            <Link href="/settings" asChild>
+            <Link href="/profile/settings" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <Ionicons
                     name="settings"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: '',
-          href: null,
-          headerLeft: () => (
-            <Image
-              source={
-                colorScheme === 'dark'
-                  ? require('../../assets/images/logo-white.png')
-                  : require('../../assets/images/logo.png')
-              }
-              style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
-            />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <Ionicons
-                    name="information-circle"
                     size={25}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}

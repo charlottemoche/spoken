@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
 
-export default function Settings() {
+export default function ProfileLayout() {
   return <Stack />;
 }
