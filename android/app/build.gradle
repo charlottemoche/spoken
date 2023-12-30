@@ -81,7 +81,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.cbm.spokenApp'
+    namespace "com.spoken"
     defaultConfig {
         applicationId 'com.cbm.spokenApp'
         minSdkVersion rootProject.ext.minSdkVersion
