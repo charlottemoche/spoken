@@ -109,7 +109,7 @@ export default function AuthorizeGoogleComponent() {
   };
 
   return (
-    <View style={{ width: 300 }}>
+    <View style={{ width: '90%' }}>
       <Button
         onPress={() => promptAsync()}
         buttonStyle={{

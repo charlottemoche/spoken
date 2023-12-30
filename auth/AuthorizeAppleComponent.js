@@ -3,7 +3,6 @@ import { encode } from 'base-64';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import fetch from 'isomorphic-fetch';
 import { View, Platform } from 'react-native';
-
 import client from './Client';
 import { useAuth } from './AuthContext';
 import { saveAuthToken } from './AuthService';
@@ -99,13 +98,15 @@ export default function AuthorizeAppleComponent() {
 
   const getAppleAuthContent = () => {
     return Platform.OS === 'ios' ? (
-      <AppleAuthentication.AppleAuthenticationButton
-        buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-        cornerRadius={5}
-        style={{ width: 300, height: 44 }}
-        onPress={handleAppleLogin}
-      />
+      <View style={{ alignItems: 'center', width: '90%' }}>
+        <AppleAuthentication.AppleAuthenticationButton
+          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+          cornerRadius={5}
+          style={{ width: 300, height: 44 }}
+          onPress={handleAppleLogin}
+          />
+      </View>
     ) : null;
   };
 

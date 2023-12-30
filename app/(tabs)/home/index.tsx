@@ -4,7 +4,6 @@ import { Stack } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 import { Text, View } from '../../../components/Themed';
 import theme from '../../../constants/Colors';
 
@@ -31,24 +30,26 @@ export default function Page() {
           what you’ve bought, and share things you love.
         </Text>
         <View style={styles.textAddContainer}>
-          <Text style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 14 }}>
             To get started press the 
           </Text>
           <Ionicons size={18} name="add-circle" color="#E1EC41" style={{ paddingHorizontal: 3, marginBottom: -4 }} />
-          <Text style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'}  style={{ fontSize: 14 }}>
             button or try 
           </Text>
-          <Text style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 14 }}>
             replying to one of our example posts.
           </Text>
         </View>
       </View>
       <View style={styles.spokenAsksContainer} darkColor={'rgba(192,192,192,0.1)'}>
         <View style={styles.spokenAsksHeader} darkColor={'rgba(192,192,192,0)'}>
-          <Image
-            source={require('../../../assets/images/icon.png')}
-            style={ styles.darkIcon }
-          />
+          <View lightColor={'#121212'} style={{ borderRadius: 8 }}>
+            <Image
+              source={require('../../../assets/images/icon.png')}
+              style={ styles.darkIcon }
+            />
+          </View>
           <View darkColor={'rgba(192,192,192,0)'} style={{ padding: 3 }} />
           <Text>SPOKEN</Text>
           <Text lightColor={theme.light.accentColor} darkColor={theme.dark.accentColor}>
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
   },
   spokenSaysHeader: {
     flexDirection: 'row',
-    // align items to bottom
     alignItems: 'flex-start',
     paddingBottom: 6,
   },
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 6,
     flexWrap: 'wrap',
+    backgroundColor: '#121212',
   },
   spokenAsksContainer: {
     paddingHorizontal: 12,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   darkIcon: {
     width: 16,
     height: 16,
-    backgroundColor: '#121212',
+    backgroundColor: 'rgba(192,192,192,0.1)',
     borderRadius: 8,
   },
   buttonsContainer: {

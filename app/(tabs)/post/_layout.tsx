@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
 
-export default function PostLayout() {
+export default function AddLayout() {
   return <Stack />;
 }

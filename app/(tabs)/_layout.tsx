@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image } from 'expo-image';
-import { Link, Tabs } from 'expo-router';
+import { Link, Tabs, router } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
@@ -18,7 +18,9 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+
   const colorScheme = useColorScheme();
+  
   return (
     <Tabs
       screenOptions={{
@@ -87,19 +89,39 @@ export default function TabLayout() {
       <Tabs.Screen
         name="post"
         options={{
-          title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon size={42} name="add-circle" color="#E1EC41" />,
-          headerLeft: () => (
-            <Image
-              source={
-                colorScheme === 'dark'
-                  ? require('../../assets/images/logo-white.png')
-                  : require('../../assets/images/logo.png')
-              }
-              style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
-            />
-          ),
+        title: '',
+        tabBarIcon: ({ color }) => <TabBarIcon size={42} name="add-circle" color="#E1EC41" />,
+        headerLeft: () => (
+          <Image
+            source={
+              colorScheme === 'dark'
+                ? require('../../assets/images/logo-white.png')
+                : require('../../assets/images/logo.png')
+            }
+            style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
+          />
+        ),
+        headerRight: () => (
+          <Link href="/profile/settings" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <Ionicons
+                  name="settings"
+                  size={22}
+                  color={Colors[colorScheme ?? 'light'].text}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+              )}
+            </Pressable>
+          </Link>
+        ),
         }}
+        listeners={() => ({
+          tabPress: e => {
+            e.preventDefault();
+            router.push('/add');
+          },
+        })}
       />
       <Tabs.Screen
         name="connections"
@@ -115,6 +137,20 @@ export default function TabLayout() {
               }
               style={{ width: 100, height: 40, resizeMode: 'contain', marginLeft: 15 }}
             />
+          ),
+          headerRight: () => (
+            <Link href="/contacts" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="person-add"
+                    size={22}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
           ),
         }}
       />

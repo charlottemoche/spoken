@@ -81,7 +81,9 @@
 	<string>Automatic</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-<key>NSPhotoLibraryUsageDescription</key>
-	<string>Spoken needs access to your photo library to upload and save photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+		<string>Spoken needs access to your photo library to upload and save photos.</string>
+	<key>NSContactsUsageDescription</key>
+		<string>Spoken needs access to your contacts to find your friends.</string>
 </dict>
 </plist>

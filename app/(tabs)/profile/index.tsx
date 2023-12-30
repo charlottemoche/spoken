@@ -67,7 +67,7 @@ export default function Page() {
           if (postsData.user.posts.edges.length === 0) {
             return (
               <View style={styles.emptyPostContainer}>
-                <Text>No posts yet. Tap</Text>
+                <Text>No posts yet. Tap the</Text>
                 <Ionicons size={24} name="add-circle" color="#E1EC41" />
                 <Text>to create your first post.</Text>
               </View>
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   },
   emptyPostContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     gap: 6,
   },
