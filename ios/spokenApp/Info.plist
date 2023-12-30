@@ -49,6 +49,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Spoken needs access to your photo library to upload and save photos.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
@@ -79,7 +81,7 @@
 	<string>Automatic</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
+<key>NSPhotoLibraryUsageDescription</key>
 	<string>Spoken needs access to your photo library to upload and save photos.</string>
 </dict>
 </plist>
