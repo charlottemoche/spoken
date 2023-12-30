@@ -10,6 +10,7 @@ import Spinner from '../../../components/CoreComponents';
 import { FlatList } from 'react-native-gesture-handler';
 import { Pressable, Button } from 'react-native';
 import { Link } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Page() {
   
@@ -53,53 +54,6 @@ export default function Page() {
     );
   }
 
-  // user {
-	// 	posts {
-	// 		pageInfo {
-	// 			endCursor
-	// 			startCursor
-	// 		}
-	// 		edges {
-	// 			node {
-	// 				id
-	// 				type
-	// 				message
-	// 				reactionCounts {
-	// 					reaction
-	// 					count
-	// 				}
-	// 				product {
-	// 					name
-	// 					id
-	// 					defaultImage
-	// 					brand {
-	// 						name
-	// 						logo
-	// 					}
-	// 				}
-	// 				comments {
-	// 					pageInfo {
-	// 						endCursor
-	// 						startCursor
-	// 					}
-	// 					edges {
-	// 						node {
-	// 							id
-	// 							type
-	// 							message
-	// 							user {
-	// 								fullName
-	// 								imageSmall
-	// 								isCurrentUser
-	// 							}
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
-
   const renderTabContent = () => {
     switch (activeTab) {
       case 'Posts':
@@ -112,8 +66,10 @@ export default function Page() {
         } else {
           if (postsData.user.posts.edges.length === 0) {
             return (
-              <View>
-                <Text>No posts yet. Create your first post.</Text>
+              <View style={styles.emptyPostContainer}>
+                <Text>No posts yet. Tap</Text>
+                <Ionicons size={24} name="add-circle" color="#E1EC41" />
+                <Text>to create your first post.</Text>
               </View>
             );
           } else {
@@ -206,6 +162,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 10,
     marginTop: 10,
+  },
+  emptyPostContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   separator: {
     marginVertical: 10,

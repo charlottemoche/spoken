@@ -46,11 +46,13 @@ export default function Page() {
       <FlatList
         data={searches}
         renderItem={({ item }) => (
-          <Link href={`/search/${item}`}>
-            <Pressable>
-              <Text style={styles.searchText}>{item}</Text>
-            </Pressable>
-          </Link>
+          <Pressable>
+             {({ pressed }) => (
+              <Link href={`/search/${item}`} style={{ padding: 9 }}>
+                  <Text style={styles.searchText}>{item}</Text>
+              </Link>
+            )}
+          </Pressable>
         )}
         keyExtractor={(item) => item}
       />
@@ -86,8 +88,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   frequentlySearchedText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontWeight: '600',
     paddingTop: 10,
     margin: 10,
   },

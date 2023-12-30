@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Text } from '../../../components/Themed';
 import { Link, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 

@@ -3,6 +3,7 @@ import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { Text, View } from '../../../components/Themed';
 import theme from '../../../constants/Colors';
@@ -15,7 +16,7 @@ export default function Page() {
         <View lightColor={theme.dark.background} style={styles.spokenSaysHeader}>
           <Image
             source={require('../../../assets/images/icon.png')}
-            style={{ width: 20, height: 20 }}
+            style={{ width: 16, height: 16 }}
           />
           <View lightColor={theme.dark.background} style={{ padding: 3 }} />
           <Text style={{ color: 'white' }}>SPOKEN</Text>
@@ -29,17 +30,26 @@ export default function Page() {
           Invite your friends to ask their advice, get feedback on potential purchases, show off
           what you’ve bought, and share things you love.
         </Text>
-        <Text style={styles.spokenSaysText}>
-          To get started press the + button or try replying to one of our example posts.
-        </Text>
+        <View style={styles.textAddContainer}>
+          <Text style={{ fontSize: 14 }}>
+            To get started press the 
+          </Text>
+          <Ionicons size={18} name="add-circle" color="#E1EC41" style={{ paddingHorizontal: 3, marginBottom: -4 }} />
+          <Text style={{ fontSize: 14 }}>
+            button or try 
+          </Text>
+          <Text style={{ fontSize: 14 }}>
+            replying to one of our example posts.
+          </Text>
+        </View>
       </View>
-      <View style={styles.spokenAsksContainer} darkColor={'#121212'}>
-        <View style={styles.spokenAsksHeader} darkColor={'#121212'}>
+      <View style={styles.spokenAsksContainer} darkColor={'rgba(192,192,192,0.1)'}>
+        <View style={styles.spokenAsksHeader} darkColor={'rgba(192,192,192,0)'}>
           <Image
             source={require('../../../assets/images/icon.png')}
             style={ styles.darkIcon }
           />
-          <View darkColor={'#121212'} style={{ padding: 3 }} />
+          <View darkColor={'rgba(192,192,192,0)'} style={{ padding: 3 }} />
           <Text>SPOKEN</Text>
           <Text lightColor={theme.light.accentColor} darkColor={theme.dark.accentColor}>
             {' '}
@@ -49,7 +59,7 @@ export default function Page() {
         <Text style={styles.spokenAsksText}>
           What’s your single most essential piece of camping gear?
         </Text>
-        <View darkColor={'#121212'} style={styles.buttonsContainer}>
+        <View darkColor={'rgba(192,192,192,0)'} style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button}>
             <EvilIcons name="share-apple" size={22} color="black" />
             <Text darkColor={theme.light.text}>Share</Text>
@@ -73,17 +83,25 @@ const styles = StyleSheet.create({
   },
   spokenSaysHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // align items to bottom
+    alignItems: 'flex-start',
     paddingBottom: 6,
   },
   spokenSaysText: {
     color: '#E0E0E0',
     paddingVertical: 6,
-    fontSize: 16,
+    fontSize: 14,
+  },
+  textAddContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 6,
+    flexWrap: 'wrap',
   },
   spokenAsksContainer: {
     paddingHorizontal: 12,
     paddingVertical: 16,
+    borderRadius: 5,
   },
   spokenAsksHeader: {
     flexDirection: 'row',
@@ -94,9 +112,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   darkIcon: {
-    width: 20,
-    height: 20,
+    width: 16,
+    height: 16,
     backgroundColor: '#121212',
+    borderRadius: 8,
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -108,7 +127,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     gap: 6,
   },
 });
