@@ -103,7 +103,7 @@ export default function AuthorizeAppleComponent() {
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
         cornerRadius={5}
-        style={{ width: 375, height: 44 }}
+        style={{ width: 300, height: 44 }}
         onPress={handleAppleLogin}
       />
     ) : null;
