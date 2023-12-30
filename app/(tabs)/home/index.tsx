@@ -30,14 +30,14 @@ export default function Page() {
           what you’ve bought, and share things you love.
         </Text>
         <View style={styles.textAddContainer}>
-          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 15 }}>
             To get started press the 
           </Text>
           <Ionicons size={18} name="add-circle" color="#E1EC41" style={{ paddingHorizontal: 3, marginBottom: -4 }} />
-          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'}  style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'}  style={{ fontSize: 15 }}>
             button or try 
           </Text>
-          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 14 }}>
+          <Text lightColor={'#E0E0E0'} darkColor={'#E0E0E0'} style={{ fontSize: 15 }}>
             replying to one of our example posts.
           </Text>
         </View>
@@ -62,12 +62,12 @@ export default function Page() {
         </Text>
         <View darkColor={'rgba(192,192,192,0)'} style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button}>
-            <EvilIcons name="share-apple" size={22} color="black" />
-            <Text darkColor={theme.light.text}>Share</Text>
+            <EvilIcons name="share-apple" size={20} color="black" />
+            <Text darkColor={theme.light.text} style={{ fontWeight: '500' }}>Share</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <EvilIcons name="comment" size={20} color="black" />
-            <Text darkColor={theme.light.text}>Reply</Text>
+            <Text darkColor={theme.light.text} style={{ fontWeight: '500' }}>Reply</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   spokenSaysText: {
     color: '#E0E0E0',
     paddingVertical: 6,
-    fontSize: 14,
+    fontSize: 15,
   },
   textAddContainer: {
     flexDirection: 'row',
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 6,
+    gap: 8,
     marginTop: 10,
   },
   button: {
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    gap: 6,
+    gap: 4,
   },
 });

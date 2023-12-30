@@ -11,9 +11,10 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Pressable, Button } from 'react-native';
 import { Link } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import theme from '../../../constants/Colors';
 
 export default function Page() {
-  
+
   const userEndpoint = appendEndpoint('current-user');
 
   const productsEndpoint = appendEndpoint('current-user-products');
@@ -49,10 +50,16 @@ export default function Page() {
           style={styles.productImage}
           source={{ uri: item.node.product.defaultImage }}
         />
-        <Text style={styles.productName}>{item.node.product.name}</Text>
+        <View style={styles.productName} lightColor='#fff' darkColor='#121212'>
+          <Text style={{ fontWeight: '600', paddingBottom: 2 }}>{item.node.product.name.toUpperCase()}</Text>
+          <View style={{ flexDirection: 'row', gap: 4 }}>
+            <Text lightColor='#000' darkColor='#E0E0E0'>YOU</Text>
+            <Text lightColor={theme.light.accentColor} darkColor={theme.dark.accentColor } style={{ fontWeight: '500' }}>{item.node.ownershipStatus}</Text>
+          </View>
+        </View>
       </View>
     );
-  }
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -68,20 +75,21 @@ export default function Page() {
             return (
               <View style={styles.emptyPostContainer}>
                 <Text>No posts yet. Tap the</Text>
-                <Ionicons size={24} name="add-circle" color="#E1EC41" />
-                <Text>to create your first post.</Text>
+                <View style={styles.buttonContainer}>
+                  <View style={{ backgroundColor: '#121212', borderRadius: 50, padding: 8, top: 4, left: 2, position: 'absolute' }}></View>
+                  <Ionicons size={24} name="add-circle" color="#E1EC41" />
+                </View>
+                <Text>to start.</Text>
               </View>
             );
           } else {
             return (
-              <View>
-                <FlatList
-                  data={postsData.user.posts.edges}
-                  renderItem={renderProduct}
-                  keyExtractor={(item) => item.node.id}
-                  numColumns={2}
-                />
-              </View>
+              <FlatList
+                data={postsData.user.posts.edges}
+                renderItem={renderProduct}
+                keyExtractor={(item) => item.node.id}
+                numColumns={2}
+              />
             );
           }
         }
@@ -94,14 +102,12 @@ export default function Page() {
           );
         } else {
           return (
-            <View>
-              <FlatList
-                data={productsData.user.products.edges}
-                renderItem={renderProduct}
-                keyExtractor={(item) => item.node.id}
-                numColumns={2}
-              />
-            </View>
+            <FlatList
+              data={productsData.user.products.edges}
+              renderItem={renderProduct}
+              keyExtractor={(item) => item.node.id}
+              numColumns={1}
+            />
           );
         }
       default:
@@ -111,33 +117,40 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
-      <View style={styles.profileContainer}>
-        <View>
-          <Image
-            style={styles.avatar}
-            source={{ uri: userData.user.imageSmall }}
-          />
-          <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{userData.user.fullName}</Text>
-          <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{userData.user.bio}</Text>
-        </View>
-      </View>
-      <View lightColor='gray' darkColor='gray' style={styles.separator} />
-      <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
-          onPress={() => setActiveTab('Posts')}
-        >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>Posts</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'Products' && styles.activeTab]}
-          onPress={() => setActiveTab('Products')}
-        >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.content}>{renderTabContent()}</View>
+      <FlatList
+        style={styles.container}
+        ListHeaderComponent={
+          <>
+            <View style={styles.profileContainer}>
+              <View>
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: userData.user.imageSmall }}
+                />
+                <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{userData.user.fullName}</Text>
+                <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{userData.user.bio}</Text>
+              </View>
+            </View>
+            <View lightColor='#E0E0E0' darkColor='#333333' style={styles.separator} />
+            <View style={styles.tabContainer}>
+              <TouchableOpacity
+                style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
+                onPress={() => setActiveTab('Posts')}
+              >
+                <Text lightColor='black' darkColor='white' style={[activeTab === 'Posts' && styles.activeTabText]}>Posts</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.tab, activeTab === 'Products' && styles.activeTab]}
+                onPress={() => setActiveTab('Products')}
+              >
+                <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        }
+        data={[{ key: 'content', content: renderTabContent() }]}
+        renderItem={({ item }) => item.content}
+      />
     </View>
   );
 }
@@ -145,7 +158,9 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 6,
+    paddingVertical: 4,
+    paddingBottom: 10,
+    paddingHorizontal: 4,
   },
   avatar: {
     width: 100,
@@ -168,6 +183,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: 6,
+    paddingHorizontal: 12,
+  },
+  buttonContainer: {
+    position: 'relative',
   },
   separator: {
     marginVertical: 10,
@@ -188,7 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   activeTab: {
-    backgroundColor: '#222222'
+    backgroundColor: '#333333'
   },
   activeTabText: {
     color: 'white'
@@ -201,9 +220,10 @@ const styles = StyleSheet.create({
     margin: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200,
+    height: 300,
     borderRadius: 8,
     overflow: 'hidden',
+    marginBottom: 10,
   },
   productImage: {
     width: '100%',
@@ -215,9 +235,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: 'white',
-    padding: 8,
+    paddingVertical: 10,
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',

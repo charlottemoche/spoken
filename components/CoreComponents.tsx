@@ -7,7 +7,7 @@ export default function Spinner() {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Stack.Screen options={{ headerShown: false, title: 'Spinner' }} />
             <Text>
-                <ActivityIndicator />;
+                <ActivityIndicator />
             </Text>
         </View>
     );

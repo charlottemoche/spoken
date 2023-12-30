@@ -22,6 +22,8 @@ export default function AddModal() {
             )}
             </Pressable>
 
+            <View lightColor='#fff' darkColor='#333333' style={{ height: 1, width: '90%', alignSelf: 'center' }} />
+
             <Pressable style={styles.button}>
                 {({ pressed }) => (
                 // <Link href='/post/create'>
@@ -33,6 +35,8 @@ export default function AddModal() {
             )}
             </Pressable>
 
+            <View lightColor='#fff' darkColor='#333333' style={{ height: 1, width: '90%', alignSelf: 'center' }} />
+
             <Pressable style={styles.button}>
                 {({ pressed }) => (
                 // <Link href='/post/create'>
@@ -43,6 +47,8 @@ export default function AddModal() {
                 // </Link>
             )}
             </Pressable>
+            
+            <View lightColor='#fff' darkColor='#333333' style={{ height: 1, width: '90%', alignSelf: 'center' }} />
 
             <Pressable style={styles.button}>
                 {({ pressed }) => (
@@ -54,6 +60,8 @@ export default function AddModal() {
                 </Link>
             )}
             </Pressable>
+
+            <View lightColor='#fff' darkColor='#333333' style={{ height: 1, width: '90%', alignSelf: 'center' }} />
 
             <Pressable style={styles.button}>
                 {({ pressed }) => (

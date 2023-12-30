@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, TouchableHighlight } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
+import { Text } from '../../../components/Themed';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { TextInput } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string>('I want this');
 
   const openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -31,9 +35,6 @@ export default function Page() {
     const body = new FormData();
   
     const imageUri = selectedImage.replace('file://', '');
-  
-    const imageBlob = await fetch(imageUri).then((res) => res.blob());
-    const imageInfo = await ImageManipulator.manipulateAsync(imageUri, []);
   
     const extension = imageUri.split('.').pop();
     const mimeType = extension ? `image/${extension.toLowerCase()}` : 'image/jpeg';
@@ -70,6 +71,10 @@ export default function Page() {
     }
   };
 
+  const handleOption = (option: string) => {
+    setSelectedOption(option);
+  }
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Post' }} />
@@ -84,10 +89,63 @@ export default function Page() {
           />
         )}
       </View>
-      <View style={{ padding: 20 }} />
-      {selectedImage && (
-        <Button title="Upload" onPress={handlePost} color='black' />
-      )}
+      <View style={styles.optionContainer}>
+        <TouchableHighlight
+          style={{
+            backgroundColor: selectedOption === 'I want this' ? 'black' : 'transparent',
+            borderRadius: 50,
+            padding: 12,
+            flexBasis: '50%',
+          }}
+          onPress={() => handleOption('I want this')}
+          underlayColor="transparent"
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <Ionicons name="heart" size={24} color={selectedOption === 'I want this' ? 'white' : 'gray'} />
+            <Text style={{ color: selectedOption === 'I want this' ? 'white' : 'gray', textAlign: 'center' }}>I want this</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={{
+            backgroundColor: selectedOption === 'I own this' ? 'black' : 'transparent',
+            borderRadius: 50,
+            padding: 12,
+            flexBasis: '50%',
+          }}
+          onPress={() => handleOption('I own this')}
+          underlayColor="transparent"
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <Ionicons name={selectedOption === 'I own this' ? 'checkbox' : 'checkbox-outline'}  size={24} color={selectedOption === 'I own this' ? 'white' : 'gray'} />
+            <Text style={{ color: selectedOption === 'I own this' ? 'white' : 'gray' }}>I own this</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+      <View style={styles.commentContainer}>
+        <TextInput
+          style={styles.comment}
+          placeholder="Comment"
+          placeholderTextColor="#808080"
+        />
+      </View>
+      <TouchableHighlight
+        style={{
+          backgroundColor: 'black',
+          borderRadius: 6,
+          padding: 14,
+          marginVertical: 10,
+          marginHorizontal: 20,
+          opacity: selectedImage ? 1 : 0.7,
+          borderWidth: 2,
+          borderColor: '#222222',
+        }}
+        onPress={handlePost}
+        underlayColor="transparent"
+        disabled={!selectedImage}
+      >
+      <Text style={{ color: 'white', textAlign: 'center' }}>Create Post</Text>
+    </TouchableHighlight>
     </View>
   );
 }
@@ -95,6 +153,33 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+  },
+  commentContainer: {
+    backgroundColor: '#8F919924',
+    borderRadius: 5,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    alignItems: 'flex-start',
+    height: 100,
+  },
+  comment: {
+    fontSize: 14,
+    fontWeight: '500',
+    padding: 20,
+  },
+  optionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 20,
+    backgroundColor: '#8F919924',
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: '#222222',
+    marginHorizontal: 20,
+  },
+  optionText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   imageContainer: {
     backgroundColor: 'gray',
@@ -105,7 +190,7 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     position: 'absolute',
-    top: '40%',
+    top: '44%',
     left: 0,
     right: 0,
   },

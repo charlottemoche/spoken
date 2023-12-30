@@ -37,7 +37,7 @@ export default function Id() {
           </Text>
         </View>
       </View>
-      <View lightColor='gray' darkColor='gray' style={styles.separator} />
+      <View lightColor='#E0E0E0' darkColor='#333333' style={styles.separator} />
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'Posts' && styles.activeTab]}
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   activeTab: {
-    backgroundColor: '#222222'
+    backgroundColor: '#333333'
   },
   activeTabText: {
     color: 'white'
