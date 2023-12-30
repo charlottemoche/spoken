@@ -10,10 +10,8 @@ import Spinner from '../../../components/CoreComponents';
 import { GET_CONNECTIONS } from '../../../auth/Queries';
 
 export default function Page() {
-  // Append the endpoint dynamically
   const endpoint = appendEndpoint('user-connections');
 
-  // Use Apollo Client with the dynamic endpoint
   const { loading, error, data } = useQuery(GET_CONNECTIONS, {
     context: { uri: endpoint },
   });

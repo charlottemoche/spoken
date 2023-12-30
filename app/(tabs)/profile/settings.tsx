@@ -9,6 +9,7 @@ import { GET_USER, UPDATE_CURR_USER } from '../../../auth/Queries';
 import { appendEndpoint } from '../../../auth/Client';
 import Spinner from '../../../components/CoreComponents';
 import { Image } from 'expo-image';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Page() {
   const { checkLoginStatus } = useAuth();
@@ -52,33 +53,36 @@ export default function Page() {
           source={{ uri: userData.user.imageSmall }}
         />
         <View style={styles.profileContainer}>
-          <View>
+          <View style={{ width: '100%' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, borderBottomColor: '#E0E0E0', borderBottomWidth: 1 }}>
-              <Text style={{ fontWeight: '500' }}>Name</Text>
+              <Text style={{ fontWeight: '600' }}>Name</Text>
               <TextInput
                 style={[styles.username, { color: textColor }]}
                 value={name}
                 onChangeText={setName}
                 placeholder="Full Name"
               />
+              <Feather name="edit" size={16} color={textColor} style={{ marginLeft: 'auto' }} />
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, borderBottomColor: '#E0E0E0', borderBottomWidth: 1 }}>
-              <Text style={{ fontWeight: '500' }}>Bio</Text>
+              <Text style={{ fontWeight: '600' }}>Bio</Text>
               <TextInput
                 style={[styles.bio, { color: textColor }]}
                 value={bio}
                 onChangeText={setBio}
                 placeholder="Bio"
               />
+              <Feather name="edit" size={16} color={textColor} style={{ marginLeft: 'auto' }} />
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, borderBottomColor: '#E0E0E0', borderBottomWidth: 1 }}>
-              <Text style={{ fontWeight: '500' }}>Phone</Text>
+              <Text style={{ fontWeight: '600' }}>Phone</Text>
               <TextInput
                 style={[styles.phone, { color: textColor }]}
                 value={phoneNumber}
                 onChangeText={setPhoneNumber}
                 placeholder="Phone Number"
               />
+              <Feather name="edit" size={16} color={textColor} style={{ marginLeft: 'auto' }} />
             </View>
           </View>
         </View>
@@ -90,9 +94,10 @@ export default function Page() {
 
 const styles = StyleSheet.create({
   profileContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
   avatar: {
     width: 80,
@@ -105,7 +110,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   input: {
-    paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },

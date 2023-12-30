@@ -57,9 +57,88 @@ export const GET_CURR_USER_PRODUCTS = gql`
 	}
 `;
 
+export const GET_CONNECTION_PRODUCTS = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      products {
+        pageInfo {
+          endCursor
+          startCursor
+        }
+        edges {
+          node {
+            id
+            ownershipStatus
+            product {
+              name
+              id
+              defaultImage
+              brand {
+                name
+                logo
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_CURR_USER_POSTS = gql`
   query {
     user {
+      posts {
+        pageInfo {
+          endCursor
+          startCursor
+        }
+        edges {
+          node {
+            id
+            type
+            message
+            reactionCounts {
+              reaction
+              count
+            }
+            product {
+              name
+              id
+              defaultImage
+              brand {
+                name
+                logo
+              }
+            }
+            comments {
+              pageInfo {
+                endCursor
+                startCursor
+              }
+              edges {
+                node {
+                  id
+                  type
+                  message
+                  user {
+                    fullName
+                    imageSmall
+                    isCurrentUser
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_CONNECTION_POSTS = gql`
+  query user($id: ID!) {
+    user(id: $id) {
       posts {
         pageInfo {
           endCursor

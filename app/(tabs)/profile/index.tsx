@@ -88,7 +88,7 @@ export default function Page() {
                 data={postsData.user.posts.edges}
                 renderItem={renderProduct}
                 keyExtractor={(item) => item.node.id}
-                numColumns={2}
+                numColumns={1}
               />
             );
           }
@@ -129,7 +129,7 @@ export default function Page() {
                   source={{ uri: userData.user.imageSmall }}
                 />
                 <Text lightColor='black' darkColor='#E0E0E0' style={styles.username}>{userData.user.fullName}</Text>
-                <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{userData.user.bio}</Text>
+                {userData.user.bio && <Text lightColor='black' darkColor='white' style={{ paddingVertical: 8 }}>{userData.user.bio}</Text>}
               </View>
             </View>
             <View lightColor='#E0E0E0' darkColor='#333333' style={styles.separator} />
@@ -218,13 +218,16 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     flex: 1,
-    margin: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 300,
-    borderRadius: 8,
+    height: 350,
     overflow: 'hidden',
-    marginBottom: 10,
+    marginBottom: 14,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    margin: 10,
+    boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.75)',
   },
   productImage: {
     width: '100%',
@@ -241,5 +244,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',
+    padding: 10,
+    borderTopColor: '#E0E0E0',
+    borderTopWidth: 1,
   },
 });

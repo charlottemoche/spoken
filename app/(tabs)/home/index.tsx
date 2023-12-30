@@ -11,6 +11,7 @@ import { GET_FEED } from '../../../auth/Queries';
 import { useQuery, gql } from '@apollo/client';
 import { appendEndpoint } from '../../../auth/Client';
 import Spinner from '../../../components/CoreComponents';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function Page() {
   const [spokenSaysContainerVisible, setSpokenSaysContainerVisible] = useState(true);
@@ -61,12 +62,12 @@ export default function Page() {
         </Text>
         <View darkColor={'rgba(192,192,192,0)'} style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button}>
-            <EvilIcons name="share-apple" size={20} color="black" />
-            <Text darkColor={theme.light.text} style={{ fontWeight: '500' }}>Share</Text>
+            <Ionicons name="share-outline" size={17} color="black" />
+            <Text darkColor={theme.light.text} style={{ fontWeight: '500', paddingLeft: 1 }}>Share</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <EvilIcons name="comment" size={20} color="black" />
-            <Text darkColor={theme.light.text} style={{ fontWeight: '500' }}>Reply</Text>
+            <FontAwesome name="comment-o" size={16} color="black" />
+            <Text darkColor={theme.light.text} style={{ fontWeight: '500', paddingLeft: 1 }}>Reply</Text>
           </TouchableOpacity>
         </View>
       </View>
