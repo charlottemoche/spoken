@@ -18,7 +18,7 @@ export default function Page() {
     context: { uri: endpoint },
   });
 
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner />
 
   if (error) {
     console.error('GraphQL error:', error);

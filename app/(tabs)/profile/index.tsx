@@ -5,10 +5,10 @@ import { useQuery, gql } from '@apollo/client';
 import { Stack } from 'expo-router';
 import { Text, View } from '../../../components/Themed';
 import { appendEndpoint } from '../../../auth/Client';
-import { GET_USER, GET_CURR_USER_PRODUCTS } from '../../../auth/Queries';
+import { GET_USER, GET_CURR_USER_PRODUCTS, GET_CURR_USER_POSTS } from '../../../auth/Queries';
 import Spinner from '../../../components/CoreComponents';
 import { FlatList } from 'react-native-gesture-handler';
-import { Pressable } from 'react-native';
+import { Pressable, Button } from 'react-native';
 import { Link } from 'expo-router';
 
 export default function Page() {
@@ -21,26 +21,22 @@ export default function Page() {
     context: { uri: userEndpoint, fetchPolicy: 'network-only' },
   });
 
-  const { loading: productsLoading, error: postsError, data: productsData } = useQuery(GET_CURR_USER_PRODUCTS, {
+  const { loading: postsLoading, error: postsError, data: postsData } = useQuery(GET_CURR_USER_POSTS, {
+    context: { uri: productsEndpoint, fetchPolicy: 'network-only' },
+  });
+
+  const { loading: productsLoading, error: productsError, data: productsData } = useQuery(GET_CURR_USER_PRODUCTS, {
     context: { uri: productsEndpoint, fetchPolicy: 'network-only' },
   });
 
   const [activeTab, setActiveTab] = useState('Posts');
 
-  if (userLoading || productsLoading) return <Spinner />;
+  if (userLoading || productsLoading || postsLoading ) return <Spinner />
 
   if (userError) {
     return (
       <View>
         <Text>Unable to load profile.</Text>
-      </View>
-    );
-  }
-
-  if (postsError) {
-    return (
-      <View>
-        <Text>Unable to load posts.</Text>
       </View>
     );
   }
@@ -57,23 +53,101 @@ export default function Page() {
     );
   }
 
+  // user {
+	// 	posts {
+	// 		pageInfo {
+	// 			endCursor
+	// 			startCursor
+	// 		}
+	// 		edges {
+	// 			node {
+	// 				id
+	// 				type
+	// 				message
+	// 				reactionCounts {
+	// 					reaction
+	// 					count
+	// 				}
+	// 				product {
+	// 					name
+	// 					id
+	// 					defaultImage
+	// 					brand {
+	// 						name
+	// 						logo
+	// 					}
+	// 				}
+	// 				comments {
+	// 					pageInfo {
+	// 						endCursor
+	// 						startCursor
+	// 					}
+	// 					edges {
+	// 						node {
+	// 							id
+	// 							type
+	// 							message
+	// 							user {
+	// 								fullName
+	// 								imageSmall
+	// 								isCurrentUser
+	// 							}
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'Posts':
-        return <Text>Posts content goes here</Text>;
+        if (postsError) {
+          return (
+            <View>
+              <Text>Unable to load posts.</Text>
+            </View>
+          );
+        } else {
+          if (postsData.user.posts.edges.length === 0) {
+            return (
+              <View>
+                <Text>No posts yet. Create your first post.</Text>
+              </View>
+            );
+          } else {
+            return (
+              <View>
+                <FlatList
+                  data={postsData.user.posts.edges}
+                  renderItem={renderProduct}
+                  keyExtractor={(item) => item.node.id}
+                  numColumns={2}
+                />
+              </View>
+            );
+          }
+        }
       case 'Products':
-        return (
-          <View>
-            <FlatList
-              data={productsData.user.products.edges}
-              renderItem={renderProduct}
-              keyExtractor={(item) => item.node.id}
-              numColumns={2}
-            />
-          </View>
-        );
-      case 'Connections':
-        return <Text>Connections content goes here</Text>;
+        if (productsError) {
+          return (
+            <View>
+              <Text>Unable to load products.</Text>
+            </View>
+          );
+        } else {
+          return (
+            <View>
+              <FlatList
+                data={productsData.user.products.edges}
+                renderItem={renderProduct}
+                keyExtractor={(item) => item.node.id}
+                numColumns={2}
+              />
+            </View>
+          );
+        }
       default:
         return null;
     }
@@ -105,12 +179,6 @@ export default function Page() {
           onPress={() => setActiveTab('Products')}
         >
           <Text lightColor='black' darkColor='white' style={[activeTab === 'Products' && styles.activeTabText]}>Products</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'Connections' && styles.activeTab]}
-          onPress={() => setActiveTab('Connections')}
-        >
-          <Text lightColor='black' darkColor='white' style={[activeTab === 'Connections' && styles.activeTabText]}>Connections</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>{renderTabContent()}</View>

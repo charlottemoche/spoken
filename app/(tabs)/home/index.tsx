@@ -15,7 +15,7 @@ export default function Page() {
         <View lightColor={theme.dark.background} style={styles.spokenSaysHeader}>
           <Image
             source={require('../../../assets/images/icon.png')}
-            style={{ width: 25, height: 25 }}
+            style={{ width: 20, height: 20 }}
           />
           <View lightColor={theme.dark.background} style={{ padding: 3 }} />
           <Text style={{ color: 'white' }}>SPOKEN</Text>
@@ -33,13 +33,13 @@ export default function Page() {
           To get started press the + button or try replying to one of our example posts.
         </Text>
       </View>
-      <View style={styles.spokenAsksContainer} darkColor={'#282828'}>
-        <View style={styles.spokenAsksHeader} darkColor={'#282828'}>
+      <View style={styles.spokenAsksContainer} darkColor={'#121212'}>
+        <View style={styles.spokenAsksHeader} darkColor={'#121212'}>
           <Image
-            source={require('../../../assets/images/icon-dark.png')}
-            style={{ width: 25, height: 25 }}
+            source={require('../../../assets/images/icon.png')}
+            style={ styles.darkIcon }
           />
-          <View darkColor={'#282828'} style={{ padding: 3 }} />
+          <View darkColor={'#121212'} style={{ padding: 3 }} />
           <Text>SPOKEN</Text>
           <Text lightColor={theme.light.accentColor} darkColor={theme.dark.accentColor}>
             {' '}
@@ -49,7 +49,7 @@ export default function Page() {
         <Text style={styles.spokenAsksText}>
           What’s your single most essential piece of camping gear?
         </Text>
-        <View darkColor={'#282828'} style={styles.buttonsContainer}>
+        <View darkColor={'#121212'} style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button}>
             <EvilIcons name="share-apple" size={22} color="black" />
             <Text darkColor={theme.light.text}>Share</Text>
@@ -92,6 +92,11 @@ const styles = StyleSheet.create({
   spokenAsksText: {
     paddingVertical: 6,
     fontSize: 20,
+  },
+  darkIcon: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#121212',
   },
   buttonsContainer: {
     flexDirection: 'row',

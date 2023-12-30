@@ -31,7 +31,7 @@ export default function Results() {
   return (
     <View style={styles.container}>
       <Stack.Screen
-        options={{ headerShown: true, title: 'Results', headerTintColor: colorScheme === 'dark' ? 'white' : 'black' }}
+        options={{ headerShown: true, title: '', headerTintColor: colorScheme === 'dark' ? 'white' : 'black' }}
       />
       <FlatList
         data={results}

@@ -56,3 +56,54 @@ export const GET_CURR_USER_PRODUCTS = gql`
     }
 	}
 `;
+
+export const GET_CURR_USER_POSTS = gql`
+  query {
+    user {
+      posts {
+        pageInfo {
+          endCursor
+          startCursor
+        }
+        edges {
+          node {
+            id
+            type
+            message
+            reactionCounts {
+              reaction
+              count
+            }
+            product {
+              name
+              id
+              defaultImage
+              brand {
+                name
+                logo
+              }
+            }
+            comments {
+              pageInfo {
+                endCursor
+                startCursor
+              }
+              edges {
+                node {
+                  id
+                  type
+                  message
+                  user {
+                    fullName
+                    imageSmall
+                    isCurrentUser
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
