@@ -28,6 +28,9 @@ PODS:
     - SDWebImageAVIFCoder (~> 0.10.1)
     - SDWebImageSVGCoder (~> 1.7.0)
     - SDWebImageWebPCoder (~> 0.13.0)
+  - ExpoImageManipulator (11.5.0):
+    - EXImageLoader
+    - ExpoModulesCore
   - ExpoImagePicker (14.5.0):
     - ExpoModulesCore
   - ExpoKeepAwake (12.3.0):
@@ -537,6 +540,7 @@ DEPENDENCIES:
   - ExpoCrypto (from `../node_modules/expo-crypto/ios`)
   - ExpoHead (from `../node_modules/expo-head/ios`)
   - ExpoImage (from `../node_modules/expo-image/ios`)
+  - ExpoImageManipulator (from `../node_modules/expo-image-manipulator/ios`)
   - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -630,6 +634,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-head/ios"
   ExpoImage:
     :path: "../node_modules/expo-image/ios"
+  ExpoImageManipulator:
+    :path: "../node_modules/expo-image-manipulator/ios"
   ExpoImagePicker:
     :path: "../node_modules/expo-image-picker/ios"
   ExpoKeepAwake:
@@ -744,6 +750,7 @@ SPEC CHECKSUMS:
   ExpoCrypto: 42485127a5968dda6f67ac5f2b42d3c0af31d7db
   ExpoHead: ac95331e2a45cb94f6aee8ba6b8cb3d0a2cc6817
   ExpoImage: bbd451559f49f78d858592fe1d4d74aedb3d900b
+  ExpoImageManipulator: 6d37f811d47a89afb34c0ec2521c6a6ea5f5a5be
   ExpoImagePicker: 9e5c745cb3e56ee00e1cfe5d6af59caab66ecf1a
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoModulesCore: c480fd4e3c7c8e81f0a6ba3a7c56869f25fe016d
