@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 export const GET_USER = gql`
   query {
@@ -102,6 +102,50 @@ export const GET_CURR_USER_POSTS = gql`
               }
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_FEED = gql`
+  query {
+    feed {
+      edges {
+        node {
+          content {
+            ... on Post {
+              __typename
+              message
+            }
+            ... on Comment {
+              __typename
+              message
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_CURR_USER = gql`
+  mutation UpdateCurrentUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
+      ... on UpdateUserSuccess {
+        user {
+          fullName
+          email
+          phone
+          bio
+          imageSmall
+        }
+      }
+      ... on InvalidDataError {
+        message
+        invalidFields {
+          field
+          errors
         }
       }
     }

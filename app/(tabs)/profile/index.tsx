@@ -5,7 +5,7 @@ import { useQuery, gql } from '@apollo/client';
 import { Stack } from 'expo-router';
 import { Text, View } from '../../../components/Themed';
 import { appendEndpoint } from '../../../auth/Client';
-import { GET_USER, GET_CURR_USER_PRODUCTS, GET_CURR_USER_POSTS } from '../../../auth/Queries';
+import { GET_USER, GET_CURR_USER_PRODUCTS, GET_CURR_USER_POSTS, UPDATE_CURR_USER } from '../../../auth/Queries';
 import Spinner from '../../../components/CoreComponents';
 import { FlatList } from 'react-native-gesture-handler';
 import { Pressable, Button } from 'react-native';
@@ -117,6 +117,7 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: false, title: 'Profile' }} />
       <FlatList
         style={styles.container}
         ListHeaderComponent={
