@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Button, TouchableHighlight, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'expo-image';
 import { Stack } from 'expo-router';
@@ -7,6 +7,7 @@ import { Text } from '../../../components/Themed';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -76,11 +77,12 @@ export default function Page() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Stack.Screen options={{ headerShown: false, title: 'Post' }} />
       <View style={styles.imageContainer}>
         <View style={styles.uploadText}>
           <Button title="Upload an image" onPress={openImagePicker} color="black" />
+          <Feather name="edit" size={20} color="black" />
         </View>
         {selectedImage && (
           <Image
@@ -146,12 +148,13 @@ export default function Page() {
       >
       <Text style={{ color: 'white', textAlign: 'center' }}>Create Post</Text>
     </TouchableHighlight>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     justifyContent: 'center',
   },
   commentContainer: {
@@ -183,15 +186,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: 'gray',
-    width: '100%',
-    height: 300,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '95%',
+    height: 340,
+    alignSelf: 'center',
+    borderRadius: 5,
   },
   uploadText: {
     position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
     top: '44%',
-    left: 0,
+    left: '26%',
     right: 0,
   },
 });
