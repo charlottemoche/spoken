@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "spokenApp.app"
-               BlueprintName = "spokenApp"
-               ReferencedContainer = "container:spokenApp.xcodeproj">
+               BuildableName = "Spoken.app"
+               BlueprintName = "Spoken"
+               ReferencedContainer = "container:Spoken.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "spokenAppTests.xctest"
-               BlueprintName = "spokenAppTests"
-               ReferencedContainer = "container:spokenApp.xcodeproj">
+               BuildableName = "SpokenTests.xctest"
+               BlueprintName = "SpokenTests"
+               ReferencedContainer = "container:Spoken.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "spokenApp.app"
-            BlueprintName = "spokenApp"
-            ReferencedContainer = "container:spokenApp.xcodeproj">
+            BuildableName = "Spoken.app"
+            BlueprintName = "Spoken"
+            ReferencedContainer = "container:Spoken.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "spokenApp.app"
-            BlueprintName = "spokenApp"
-            ReferencedContainer = "container:spokenApp.xcodeproj">
+            BuildableName = "Spoken.app"
+            BlueprintName = "Spoken"
+            ReferencedContainer = "container:Spoken.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
